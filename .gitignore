@@ -4,6 +4,11 @@ jspm_packages
 
 # Serverless directories
 .serverless
+credentials
 
 #Lock
 **.lock
+
+# Env
+
+.env

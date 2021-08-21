@@ -1,0 +1,38 @@
+version: '3.5'
+
+services:
+  ubuntu:
+    build:
+      context: ./
+    volumes:
+      - ./:/home/ubuntu
+      - ./config/aws:/root/.aws
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres_ihc
+    image: postgres:13.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgresihc
+      POSTGRES_DB: meal-scheduler
+    volumes:
+      - pgihc:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network
+    restart: unless-stopped
+
+networks:
+  pg-network:
+    driver: bridge
+
+volumes:
+  pgihc:
+    external: true
+
+
