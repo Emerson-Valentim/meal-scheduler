@@ -7,6 +7,12 @@ provider:
   runtime: nodejs14.x
   lambdaHashingVersion: '20201221'
   profile: ubuntu-serverless
+  region: sa-east-1
+  memorySize: 256
+  deploymentBucket:
+    name: em-serverless
+    tags:
+      Service: IHC
 
 functions:
   hello:
