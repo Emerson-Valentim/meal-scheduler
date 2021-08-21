@@ -5,9 +5,11 @@ jspm_packages
 # Serverless directories
 .serverless
 credentials
+.build
 
 #Lock
 **.lock
+yarn-error.log
 
 # Env
 
