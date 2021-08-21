@@ -30,6 +30,7 @@ custom:
     port: 3000
 
 plugins:
-  - serverless-plugin-typescript
   - serverless-plugin-include-dependencies
+  - serverless-plugin-typescript
+  - serverless-tscpaths
   - serverless-offline
