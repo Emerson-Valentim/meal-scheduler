@@ -12,14 +12,24 @@ provider:
     name: em-serverless
     tags:
       Service: IHC
+      
+package:
+  individually: true
 
 functions:
   hello:
-    handler: handler.hello
+    handler: router.establishmentCreate
     events:
       - http:
-          path: /
-          method: get
+          path: /establishment/create
+          method: post
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    port: 3000
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-tscpaths
+  - serverless-offline
