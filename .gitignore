@@ -12,5 +12,7 @@ credentials
 yarn-error.log
 
 # Env
-
 .env
+
+#vscode
+.vscode
