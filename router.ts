@@ -27,7 +27,7 @@ const routes: RouteDefinition = {
 
 Object.entries(routes).forEach(([prefix, methodDefinition]) => {
   Object.values(methodDefinition.methods).forEach((controllerMethod) => {
-    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): BaseHttpResponse => {
+    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): Promise<BaseHttpResponse> => {
       
       let response: BaseHttpResponse = {
         statusCode: 500,
