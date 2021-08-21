@@ -1,0 +1,26 @@
+name: Manual deploy
+
+on: workflow_dispatch
+
+jobs:
+    manual:
+      
+      runs-on: ubuntu-latest
+      container:  node:lts-alpine
+
+      steps:
+        - name: Check out repository code
+          uses: actions/checkout@v2
+
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: sa-east-1
+      
+        - name: Install dependencies
+          run: yarn
+      
+        - name: Serverless deploy
+          run:  sls deploy

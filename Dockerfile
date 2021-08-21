@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-RUN npm install -g serverless
+RUN yarn global add serverless
 
 WORKDIR /home/ubuntu
 
