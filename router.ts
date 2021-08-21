@@ -1,33 +1,36 @@
-import { Utils } from 'App/Services/Utils';
+import EstablishmentController from 'App/Controllers/EstablishmentController';
+import HttpController from 'App/Controllers/HttpController';
+import BodyMiddleware from 'App/Middleware/BodyMiddleware';
+
+import Utils from 'App/Services/Utils';
+
+type MethodDefinition = {
+  [prefix:string]: string
+}
 
 type RouteDefinition = {
   [prefix: string]: {
-    [path: string]: string
+    methods: MethodDefinition
+    controller: HttpController
   }
 }
 
 const routes: RouteDefinition = {
   establishment: {
-    create:  'create',
-  },
+    methods: {
+      create: 'create'
+    },
+    controller: new EstablishmentController(),
+  }
 };
 
-module.exports.hello = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v2.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2,
-    ),
-  };
-};
-
-Object.entries(routes).forEach(([routePrefix, controllerDefinition]) => {
-  Object.entries(controllerDefinition).forEach(([routePath, methodDefinition]) => {
-    module.exports[`${routePrefix}${routePath}`] = require(`./app/Controllers/${Utils.capitalize(routePrefix)}Controller/`)[methodDefinition]
-  });
-});
+Object.entries(routes).forEach(([prefix, methodDefinition]) => {
+  Object.values(methodDefinition.methods).forEach((controllerMethod) => {
+    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context) => {
+      BodyMiddleware.requestParser(event, context)
+      const response = await methodDefinition.controller[controllerMethod as any](event, context)
+      BodyMiddleware.responseParser(response, context)
+      return response
+    }
+  })
+})

@@ -1,6 +1,6 @@
 {
 	"include": [
-		"**/*"
+		"**/*",
 	],
 	"exclude": [
 		"node_modules",
@@ -8,6 +8,7 @@
 	],
 	"compilerOptions": {
 		"baseUrl": ".",
+		"rootDir": "./",
 		"preserveConstEnums": true,
 		"strictNullChecks": true,
 		"sourceMap": true,
@@ -18,11 +19,13 @@
 		"paths": {
 			"App/*": [
 				"./app/*"
+			],
+			"Config/*": [
+				"./config/*"
 			]
 		},
 		"lib": [
 			"es2015"
 		],
-		"rootDir": "./"
 	}
 }
