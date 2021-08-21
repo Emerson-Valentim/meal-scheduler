@@ -1,14 +1,15 @@
-import { APIGatewayEvent } from 'aws-lambda'
-import HttpController from './HttpController'
+import Establishment from 'App/Models/Establishment'
+import EstablishmentValidator from 'App/Validator/EstablishmentValidator'
+import HttpController from './Base/CrudController'
 
-export default class EstablishmentController extends HttpController{
-  public async create(event: APIGatewayEvent, context): Promise<any> {
-    return {
-      statusCode: 200,
-      body: {
-        a: 1
-      }
-    }
+export default class EstablishmentController extends HttpController<
+  EstablishmentValidator,
+  typeof Establishment
+>{
+
+  constructor () {
+    super(new EstablishmentValidator(), Establishment)
   }
+  
 }
 
