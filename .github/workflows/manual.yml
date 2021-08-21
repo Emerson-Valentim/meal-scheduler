@@ -1,10 +1,10 @@
-name: Manual deploy
+name: Manual serverless
 
 on: 
   workflow_dispatch:
     inputs:
       method: 
-        description: "Action to perform on sls command"
+        description: "Code to complement serverless command"
         required: true
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         - name: Install dependencies
           run: yarn
       
-        - name: Serverless deploy
+        - name: Serverless command
           uses: serverless/github-action@master
           with:
             args: ${{ github.event.inputs.method }}
