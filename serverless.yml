@@ -12,7 +12,7 @@ provider:
     name: em-serverless
     tags:
       Service: IHC
-
+      
 package:
   individually: true
 
@@ -30,7 +30,6 @@ custom:
     port: 3000
 
 plugins:
-  - serverless-plugin-include-dependencies
   - serverless-plugin-typescript
   - serverless-tscpaths
   - serverless-offline
