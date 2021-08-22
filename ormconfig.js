@@ -1,23 +1,27 @@
 const { join } = require('path')
 
-console.log(join(__dirname, 'app', 'Models', '*.{ts,js}'))
-
 module.exports = {
   'type': 'postgres',
-  'host': 'postgres',
+  'host': process.env.PG_HOST,
   'port': 5432,
-  'username': 'postgres',
-  'password': 'postgresihc',
-  'database': 'meal-scheduler',
+  'username': process.env.PG_USERNAME,
+  'password': process.env.PG_PASSWORD,
+  'database': process.env.PG_DATABASE,
   'synchronize': true,
   'logging': false,
   'entities': [
-    join(__dirname, 'app', 'Models', '*.{ts,js}')
+    `${process.env.ENV === 'local'
+      ? join(__dirname, '.build', 'app', 'Models', '*.{ts,js}') 
+      : join(__dirname, 'app', 'Models', '*.{ts,js}')}`
   ],
   'migrations': [
-    join(__dirname, 'config', 'database', 'migration', '*.{ts,js}')
+    `${process.env.ENV === 'local'
+      ? join(__dirname, '.build', 'config', 'database', 'migration', '*.{ts,js}')
+      : join(__dirname, 'config', 'database', 'migration', '*.{ts,js}')}`
   ],
   'subscribers': [
-    join(__dirname, 'config', 'database', 'subscriber', '*.{ts,js}')
+    `${process.env.ENV === 'local'
+      ? join(__dirname, '.build', 'config', 'database', 'subscriber', '*.{ts,js}') 
+      : join(__dirname, 'config', 'database', 'subscriber', '*.{ts,js}')}`
   ]
 }
