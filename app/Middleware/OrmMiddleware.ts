@@ -19,7 +19,6 @@ export default class OrmMiddleware {
 
       queryRunner = connection.createQueryRunner();
     } catch (error) {
-      console.log(error)
       throw new HttpException('Error on database connection', 503)
     }
   }
