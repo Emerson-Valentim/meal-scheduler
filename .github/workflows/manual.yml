@@ -19,6 +19,9 @@ jobs:
    
         - name: Install dependencies
           run: yarn
+
+        - name: Install ts-node
+          run: yarn global add ts-node
       
         - name: Create env file for migration
           uses: SpicyPizza/create-envfile@v1
@@ -29,9 +32,6 @@ jobs:
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
             envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
-
-        - name: Log file
-          run: cat .env
 
         - name: Run migrations
           run: yarn migration:run
