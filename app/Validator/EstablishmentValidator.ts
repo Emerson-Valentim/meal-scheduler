@@ -7,7 +7,9 @@ export default class EstablishmentValidator implements BaseCrudValidator {
   public createValidation() {
     return Joi.object({
       name: Joi.string()
-        .required()
+        .required(),
+      description: Joi.string()
+        .required(),
     })
   }
 

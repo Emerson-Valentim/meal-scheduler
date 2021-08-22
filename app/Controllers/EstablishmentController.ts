@@ -4,12 +4,15 @@ import HttpController from './Base/CrudController'
 
 export default class EstablishmentController extends HttpController<
   EstablishmentValidator,
-  typeof Establishment
+  Establishment
 >{
 
-  constructor () {
-    super(new EstablishmentValidator(), Establishment)
+  constructor() {
+    super(
+      new EstablishmentValidator(),
+      new Establishment()
+    )
   }
-  
+
 }
 

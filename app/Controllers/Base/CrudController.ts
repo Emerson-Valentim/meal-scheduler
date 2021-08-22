@@ -1,6 +1,6 @@
 import BaseValidator from 'App/Validator/BaseValidator'
 import { APIGatewayEvent } from 'aws-lambda'
-import { number } from 'joi'
+import { BaseEntity } from 'typeorm'
 
 export interface BaseCrudValidator {
   createValidation()
@@ -14,18 +14,22 @@ export type BaseHttpResponse = {
   body: object
 }
 
-export default abstract class CrudController<Validator extends BaseCrudValidator, Model extends any> {
-  constructor (public readonly validator: Validator, public readonly model: Model) {}
+export default abstract class CrudController<Validator extends BaseCrudValidator, Model extends BaseEntity> {
+  constructor (
+    public readonly validator: Validator, 
+    public readonly model: Model
+  ) {}
 
   public async create ({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
       const data = await BaseValidator.validate(body, this.validator, 'createValidation')
-      console.log(data)
+      const createdModel = await this.model.save(data)
       return {
         statusCode: 201,
-        body: data
+        body: createdModel
       }
     } catch (error) {
+      console.log(error)
       throw error
     }
   }
