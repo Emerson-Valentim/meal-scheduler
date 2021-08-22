@@ -1,14 +1,14 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export default class Establishment extends BaseEntity {
+export default class Establishment {
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
-    name: string
+  @Column()
+  name: string
 
-    @Column()
-    description: string
+  @Column()
+  description: string
 }
