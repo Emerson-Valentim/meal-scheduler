@@ -12,10 +12,13 @@ provider:
     name: em-serverless
     tags:
       Service: IHC
+  environment: ${file(.env)}
       
 package:
   individually: true
-
+  include:
+    - ormconfig.js
+    
 functions:
   hello:
     handler: router.establishmentCreate

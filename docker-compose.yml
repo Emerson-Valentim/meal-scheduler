@@ -23,13 +23,7 @@ services:
       - pgihc:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - pg-network
     restart: unless-stopped
-
-networks:
-  pg-network:
-    driver: bridge
 
 volumes:
   pgihc:

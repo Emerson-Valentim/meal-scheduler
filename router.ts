@@ -4,6 +4,7 @@ import BodyMiddleware from 'App/Middleware/BodyMiddleware';
 
 import Utils from 'App/Services/Utils';
 import ExceptionMiddleware from 'App/Middleware/ExceptionMiddleware';
+import OrmMiddleware from 'App/Middleware/OrmMiddleware';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -12,7 +13,7 @@ type MethodDefinition = {
 type RouteDefinition = {
   [prefix: string]: {
     methods: MethodDefinition
-    controller: CrudController<any, any>
+    controller: any
   }
 }
 
@@ -21,12 +22,12 @@ const routes: RouteDefinition = {
     methods: {
       create: 'create'
     },
-    controller: new EstablishmentController(),
+    controller: EstablishmentController,
   }
 };
 
-Object.entries(routes).forEach(([prefix, methodDefinition]) => {
-  Object.values(methodDefinition.methods).forEach((controllerMethod) => {
+Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
+  Object.values(methods).forEach((controllerMethod) => {
     module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): Promise<BaseHttpResponse> => {
       
       let response: BaseHttpResponse = {
@@ -35,22 +36,26 @@ Object.entries(routes).forEach(([prefix, methodDefinition]) => {
           message: 'Internal server error'
         }
       }
-
-      BodyMiddleware.requestParser(event, context)
       
       try {
-
-        response = await methodDefinition.controller[controllerMethod as any](event, context)
-      
+        await beforeMiddleware(event, context)        
+        response = await new controller()[controllerMethod as any](event, context)
       } catch( error) {
-      
         ExceptionMiddleware.handle(response, error);
-      
       }
       
-      BodyMiddleware.responseParser(response, context)
-      
+      await afterMiddleware(event, context, response)
+
       return response
     }
   })
 })
+
+async function beforeMiddleware(event, context) {
+  BodyMiddleware.requestParser(event, context)        
+  await OrmMiddleware.init()
+}
+
+async function afterMiddleware(event, context, response) {
+  BodyMiddleware.responseParser(response, context)
+}
