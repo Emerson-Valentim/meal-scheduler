@@ -12,6 +12,7 @@ provider:
     name: em-serverless
     tags:
       Service: IHC
+  environment: ${file(.env)}
       
 package:
   individually: true
