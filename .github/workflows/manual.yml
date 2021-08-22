@@ -20,20 +20,31 @@ jobs:
         - name: Install dependencies
           run: yarn
       
-        - name: Create env file
+        - name: Create env file for migration
           uses: SpicyPizza/create-envfile@v1
           with:
+            envkey_RUN_MIGRATION: true
             envkey_ENV: dev
             envkey_PG_HOST: ${{ secrets.PG_HOST }}
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
             envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
 
-        - name: Output directory
-          run: ls -a
+        - name: Log file
+          run: cat .env
 
-        - name: Give .env file permissions
-          run: chmod 777 .env
+        - name: Run migrations
+          run: yarn migration:run
+
+        - name: Create env file for deploy
+          uses: SpicyPizza/create-envfile@v1
+          with:
+            envkey_RUN_MIGRATION: false
+            envkey_ENV: dev
+            envkey_PG_HOST: ${{ secrets.PG_HOST }}
+            envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
+            envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
 
         - name: Serverless command
           uses: serverless/github-action@master
