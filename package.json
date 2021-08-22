@@ -2,7 +2,8 @@
   "scripts": {
     "start": "docker-compose up -d && docker-compose exec ubuntu sh",
     "off": "sls offline start",
-    "migration:create": "typeorm migration:generate"
+    "migration:create": "typeorm migration:generate",
+    "migration:run": "ts-node $(yarn bin typeorm) migration:run"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.83",

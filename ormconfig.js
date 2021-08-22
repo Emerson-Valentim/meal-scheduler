@@ -27,9 +27,7 @@ function generateMigrationDir(mode = '') {
   if(mode === 'cli') {
     return join(__dirname, 'database', 'migration')
   }
-  return process.env.ENV === 'local'
-    ? join(__dirname, '.build', 'database', 'migration', '*.{ts,js}')
-    : join(__dirname, 'database', 'migration', '*.{ts,js}')
+  return join(__dirname, 'database', 'migration', '*.{ts,js}')
 }
 
 function generateSubscriberDir() {
