@@ -19,7 +19,7 @@ export default class OrmMiddleware {
 
       queryRunner = connection.createQueryRunner();
     } catch (error) {
-      throw new HttpException('Error on database connection', 503)
+      throw new HttpException('Error on database connection', 503, error)
     }
   }
 }

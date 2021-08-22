@@ -8,7 +8,7 @@ export default abstract class BaseValidator {
       return schema
     } catch (error) {      
       const detailedError = this.buildError(error)
-      throw new HttpException(detailedError.message.trim(), detailedError.statusCode)
+      throw new HttpException(detailedError.message.trim(), detailedError.statusCode, error)
     }
   }
 

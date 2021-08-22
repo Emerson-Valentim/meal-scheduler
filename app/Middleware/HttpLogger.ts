@@ -16,6 +16,7 @@ export default abstract class HttpLogger {
 
         if (response) {
             process.env.ENV !== 'local' && console.log(JSON.stringify({
+                level: 'INFO',
                 request,
                 response
             }))
