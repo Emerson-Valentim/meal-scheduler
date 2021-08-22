@@ -5,7 +5,6 @@ export default class BodyMiddleware {
         event.body = JSON.parse(event.body) ?? {}
       }
     } catch (error) {
-      console.log(error)
       throw error
     }
   }
