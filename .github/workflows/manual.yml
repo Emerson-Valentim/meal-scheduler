@@ -33,7 +33,7 @@ jobs:
             envkey_PG_HOST: ${{ secrets.PG_HOST }}
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}-${{ github.event.inputs.environment }}
+            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}_${{ github.event.inputs.environment }}
 
         - name: Run migrations
           run: yarn migration:run
@@ -46,7 +46,7 @@ jobs:
             envkey_PG_HOST: ${{ secrets.PG_HOST }}
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}-${{ github.event.inputs.environment }}
+            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}_${{ github.event.inputs.environment }}
 
         - name: Serverless command
           uses: serverless/github-action@master
