@@ -4,6 +4,7 @@ import BodyMiddleware from 'App/Middleware/BodyMiddleware';
 
 import Utils from 'App/Services/Utils';
 import ExceptionMiddleware from 'App/Middleware/ExceptionMiddleware';
+import OrmMiddleware from 'App/Middleware/OrmMiddleware';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -35,22 +36,26 @@ Object.entries(routes).forEach(([prefix, methodDefinition]) => {
           message: 'Internal server error'
         }
       }
-
-      BodyMiddleware.requestParser(event, context)
       
       try {
-
+        await beforeMiddleware(event, context)        
         response = await methodDefinition.controller[controllerMethod as any](event, context)
-      
       } catch( error) {
-      
         ExceptionMiddleware.handle(response, error);
-      
       }
       
-      BodyMiddleware.responseParser(response, context)
-      
+      await afterMiddleware(event, context, response)
+
       return response
     }
   })
 })
+
+async function beforeMiddleware(event, context) {
+  BodyMiddleware.requestParser(event, context)        
+  await OrmMiddleware.init()
+}
+
+async function afterMiddleware(event, context, response) {
+  BodyMiddleware.responseParser(response, context)
+}

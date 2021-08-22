@@ -15,7 +15,9 @@ provider:
       
 package:
   individually: true
-
+  include:
+    - ormconfig.js
+    
 functions:
   hello:
     handler: router.establishmentCreate
