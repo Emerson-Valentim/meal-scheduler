@@ -6,6 +6,8 @@ on:
       method: 
         description: "Code to complement serverless command"
         required: true
+      environment:
+        description: "Environment to run"
 
 jobs:
     manual:
@@ -27,11 +29,11 @@ jobs:
           uses: SpicyPizza/create-envfile@v1
           with:
             envkey_RUN_MIGRATION: true
-            envkey_ENV: dev
+            envkey_ENV: ${{ github.event.inputs.environment }}
             envkey_PG_HOST: ${{ secrets.PG_HOST }}
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
+            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}-${{ github.event.inputs.environment }}
 
         - name: Run migrations
           run: yarn migration:run
@@ -40,16 +42,16 @@ jobs:
           uses: SpicyPizza/create-envfile@v1
           with:
             envkey_RUN_MIGRATION: false
-            envkey_ENV: dev
+            envkey_ENV: ${{ github.event.inputs.environment }}
             envkey_PG_HOST: ${{ secrets.PG_HOST }}
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
+            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}-${{ github.event.inputs.environment }}
 
         - name: Serverless command
           uses: serverless/github-action@master
           with:
-            args: ${{ github.event.inputs.method }} -s dev
+            args: ${{ github.event.inputs.method }}
           env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
