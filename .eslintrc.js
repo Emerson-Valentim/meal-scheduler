@@ -24,7 +24,8 @@ module.exports = {
       {
         'code': 120,
         'tabWidth': 2,
-        'ignoreTemplateLiterals': true
+        'ignoreTemplateLiterals': true,
+        'ignoreString': true
       }
     ],
     'no-multi-spaces': ['error'],
