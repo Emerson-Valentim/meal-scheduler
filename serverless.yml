@@ -2,18 +2,26 @@ service: meal-scheduler
 
 frameworkVersion: '2'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs14.x
   lambdaHashingVersion: '20201221'
   region: sa-east-1
   memorySize: 256
-  stage: ${opt:stage}
+  stage: ${env:ENV}
   deploymentBucket:
     name: em-serverless
     tags:
       Service: IHC
-  environment: ${file(.env)}
+  environment:
+    ENV: ${env:ENV}
+    RUN_MIGRATION: ${env:RUN_MIGRATION}
+    PG_HOST: ${env:PG_HOST}
+    PG_USERNAME: ${env:PG_USERNAME}
+    PG_PASSWORD: ${env:PG_PASSWORD}
+    PG_DATABASE: ${env:PG_DATABASE}
       
 package:
   individually: true
