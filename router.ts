@@ -5,6 +5,7 @@ import BodyMiddleware from 'App/Middleware/BodyMiddleware';
 import Utils from 'App/Services/Utils';
 import ExceptionMiddleware from 'App/Middleware/ExceptionMiddleware';
 import OrmMiddleware from 'App/Middleware/OrmMiddleware';
+import HttpLogger from 'App/Middleware/HttpLogger';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -29,7 +30,7 @@ const routes: RouteDefinition = {
 Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
   Object.values(methods).forEach((controllerMethod) => {
     module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): Promise<BaseHttpResponse> => {
-      
+
       let response: BaseHttpResponse = {
         statusCode: 500,
         body: {
@@ -57,5 +58,6 @@ async function beforeMiddleware(event, context) {
 }
 
 async function afterMiddleware(event, context, response) {
+  HttpLogger.INFO(event, context, response)
   BodyMiddleware.responseParser(response, context)
 }
