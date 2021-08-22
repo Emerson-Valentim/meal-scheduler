@@ -13,7 +13,7 @@ type MethodDefinition = {
 type RouteDefinition = {
   [prefix: string]: {
     methods: MethodDefinition
-    controller: CrudController<any, any>
+    controller: any
   }
 }
 
@@ -22,12 +22,12 @@ const routes: RouteDefinition = {
     methods: {
       create: 'create'
     },
-    controller: new EstablishmentController(),
+    controller: EstablishmentController,
   }
 };
 
-Object.entries(routes).forEach(([prefix, methodDefinition]) => {
-  Object.values(methodDefinition.methods).forEach((controllerMethod) => {
+Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
+  Object.values(methods).forEach((controllerMethod) => {
     module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): Promise<BaseHttpResponse> => {
       
       let response: BaseHttpResponse = {
@@ -39,7 +39,7 @@ Object.entries(routes).forEach(([prefix, methodDefinition]) => {
       
       try {
         await beforeMiddleware(event, context)        
-        response = await methodDefinition.controller[controllerMethod as any](event, context)
+        response = await new controller()[controllerMethod as any](event, context)
       } catch( error) {
         ExceptionMiddleware.handle(response, error);
       }
