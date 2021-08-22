@@ -21,13 +21,13 @@ jobs:
           run: yarn
       
         - name: Create env file
-            uses: SpicyPizza/create-envfile@v1
-            with:
-              envkey_ENV: dev
-              envkey_PG_HOST: ${{ secrets.PG_HOST }}
-              envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
-              envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-              envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
+          uses: SpicyPizza/create-envfile@v1
+          with:
+            envkey_ENV: dev
+            envkey_PG_HOST: ${{ secrets.PG_HOST }}
+            envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
+            envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
 
         - name: Serverless command
           uses: serverless/github-action@master
