@@ -29,6 +29,12 @@ jobs:
             envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
             envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}
 
+        - name: Output directory
+          run: ls -a
+
+        - name: Give .env file permissions
+          run: chmod 777 .env
+
         - name: Serverless command
           uses: serverless/github-action@master
           with:
