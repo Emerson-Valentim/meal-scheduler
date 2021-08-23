@@ -1,11 +1,11 @@
 import EstablishmentController from 'App/Controllers/EstablishmentController';
-import CrudController, { BaseHttpResponse } from 'App/Controllers/Base/CrudController';
+import { BaseHttpResponse } from 'App/Controllers/Base/CrudController';
 import BodyMiddleware from 'App/Middleware/BodyMiddleware';
 
 import Utils from 'App/Services/Utils';
 import ExceptionMiddleware from 'App/Middleware/ExceptionMiddleware';
-import OrmMiddleware from 'App/Middleware/OrmMiddleware';
-import HttpLogger from 'App/Middleware/HttpLogger';
+import Orm from './orm';
+import Logger from 'App/Middleware/Logger';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -21,7 +21,10 @@ type RouteDefinition = {
 const routes: RouteDefinition = {
   establishment: {
     methods: {
-      create: 'create'
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
     },
     controller: EstablishmentController,
   }
@@ -30,6 +33,8 @@ const routes: RouteDefinition = {
 Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
   Object.values(methods).forEach((controllerMethod) => {
     module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): Promise<BaseHttpResponse> => {
+
+      await Orm.init()
 
       let response: BaseHttpResponse = {
         statusCode: 500,
@@ -54,10 +59,9 @@ Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
 
 async function beforeMiddleware(event, context) {
   BodyMiddleware.requestParser(event, context)        
-  await OrmMiddleware.init()
 }
 
 async function afterMiddleware(event, context, response) {
-  HttpLogger.INFO(event, context, response)
+  Logger.OutgoingResponse(event, context, response)
   BodyMiddleware.responseParser(response, context)
 }

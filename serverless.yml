@@ -28,13 +28,8 @@ package:
   include:
     - ormconfig.js
     
-functions:
-  hello:
-    handler: router.establishmentCreate
-    events:
-      - http:
-          path: /establishment/create
-          method: post
+functions: 
+  - ${file(./start/routes/establishment.routes.yml)}
 
 custom:
   serverless-offline:

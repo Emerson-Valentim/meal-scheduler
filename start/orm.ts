@@ -4,7 +4,7 @@ import {
   createConnection, getConnection, QueryRunner
 } from 'typeorm';
 
-export default class OrmMiddleware {
+export default class Orm {
   public static async init() {
     try {
       let connection: Connection;
