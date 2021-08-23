@@ -32,12 +32,13 @@ export default abstract class CrudController<
 
     public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
       try {
+
         const data = await BaseValidator.validate(body, this.validator, 'createValidation')
-        const model = this.repository.create()
+        const model = await this.repository.create()
 
         Utils.mapKeys(model, data)
 
-        this.repository.save(model)
+        await this.repository.save(model)
 
         return {
           statusCode: 201,
