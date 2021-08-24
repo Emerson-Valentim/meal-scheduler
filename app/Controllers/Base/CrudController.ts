@@ -20,62 +20,80 @@ export default abstract class CrudController<
   Model extends DeepPartial<any>,
   ModelRepository extends Repository<Model>> {
 
-    protected readonly repository: Repository<Model>
+  protected readonly repository: Repository<Model>
 
-    constructor(
+  constructor(
     public readonly validator: Validator,
     public readonly model: Model,
     repository: ModelRepository
-    ) {
-      this.repository = getCustomRepository(repository.constructor)
+  ) {
+    this.repository = getCustomRepository(repository.constructor)
+  }
+
+  public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      const data = await BaseValidator.validate(body, this.validator, 'createValidation')
+      const model = this.repository.create()
+
+      Utils.mapKeys(model, data)
+
+      await this.repository.save(model)
+
+      return Utils.toHttpResponse(201, model)
+    } catch (error) {
+      throw error
     }
+  }
 
-    public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
-      try {
+  public async delete({ pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      const data = await BaseValidator.validate(pathParameters, this.validator, 'deleteByIdValidation')
 
-        const data = await BaseValidator.validate(body, this.validator, 'createValidation')
-        const model = await this.repository.create()
+      const model = await this.repository.findOneOrFail(data.id)
 
-        Utils.mapKeys(model, data)
+      await this.repository.delete(model)
 
-        await this.repository.save(model)
+      return Utils.toHttpResponse(202, { message: `ID ${data.id} deleted.` })
+    } catch (error) {
+      throw error
+    }
+  }
 
-        return {
-          statusCode: 201,
-          body: model
-        }
-      } catch (error) {
-        throw error
+  public async load({ queryStringParameters, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      ({ pathParameters } = await BaseValidator.validate({ queryStringParameters, pathParameters }, this.validator, 'filterValidation'))
+
+      if (pathParameters?.id) {
+        const model = await this.repository.findOneOrFail(pathParameters.id)
+  
+        return Utils.toHttpResponse(200, model)
       }
-    }
 
-    public async deleteById({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
-      try {
-        const data = await BaseValidator.validate(body, this.validator, 'deleteByIdValidation')
-        console.log('delete')
-        return data
-      } catch (error) {
-        throw error
-      }
-    }
+      const allModels = await this.repository.find()
 
-    public async load({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
-      try {
-        const data = await BaseValidator.validate(body, this.validator, 'filterValidation')
-        console.log('load')
-        return data
-      } catch (error) {
-        throw error
+      if(allModels.length) {
+        return Utils.toHttpResponse(200, allModels)
       }
+      
+      return Utils.toHttpResponse(404, [])
+    } catch (error) {
+      throw error
     }
+  }
 
-    public async updateById({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
-      try {
-        const data = await BaseValidator.validate(body, this.validator, 'updateByIdValidation')
-        console.log('update')
-        return data
-      } catch (error) {
-        throw error
-      }
+  public async update({ body, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      const { pathParameters: { id }, body: data } = await BaseValidator.validate({ body, pathParameters }, this.validator, 'updateByIdValidation')
+      
+      const model = await this.repository.findOneOrFail(id)
+
+      await this.repository.update(model, data)
+
+      const updatedModel = await this.repository.findOneOrFail(id)
+
+      return Utils.toHttpResponse(200, updatedModel)
+    } catch (error) {
+      throw error
     }
+  }
 }

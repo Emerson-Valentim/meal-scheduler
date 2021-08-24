@@ -9,19 +9,19 @@ establishmentLoad:
   handler: ./start/router.establishmentLoad
   events:
     - http:
-        path: /establishment/load
+        path: /establishment/load/{id?}
         method: get
 
 establishmentDelete:
   handler: ./start/router.establishmentDelete
   events:
     - http:
-        path: /establishment/delete
+        path: /establishment/delete/{id}
         method: delete
 
 establishmentUpdate:
   handler: ./start/router.establishmentUpdate
   events:
     - http:
-        path: /establishment/update
+        path: /establishment/update/{id}
         method: put

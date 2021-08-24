@@ -8,4 +8,11 @@ export default abstract class Utils {
       model[key] = value
     })
   }
+
+  public static toHttpResponse(statusCode, body) {
+    return {
+      statusCode,
+      body
+    }
+  }
 }

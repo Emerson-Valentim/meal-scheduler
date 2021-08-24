@@ -14,14 +14,29 @@ export default class EstablishmentValidator implements BaseCrudValidator {
   }
 
   public filterValidation() {
-    throw new Error('Method not implemented.')
+    return Joi.object({
+      queryStringParameters: Joi.object({}).optional().allow(null),
+      pathParameters: Joi.object({
+        id: Joi.number().optional()
+      }).allow(null)
+    })
   }
   
   public updateByIdValidation() {
-    throw new Error('Method not implemented.')
+    return Joi.object({
+      pathParameters: Joi.object({
+        id: Joi.number().required()
+      }),
+      body: Joi.object({
+        name: Joi.string().optional(),
+        description: Joi.string().optional()
+      })
+    })
   }
 
   public deleteByIdValidation() {
-    throw new Error('Method not implemented.')
+    return Joi.object({
+      id: Joi.number().required()
+    })
   }
 }

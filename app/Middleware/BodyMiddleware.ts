@@ -1,5 +1,7 @@
+import { APIGatewayEvent } from "aws-lambda";
+
 export default class BodyMiddleware {
-  public static requestParser (event, context) {
+  public static requestParser (event: APIGatewayEvent, context) {
     try {
       if(typeof event.body === 'string') {
         event.body = JSON.parse(event.body) ?? {}

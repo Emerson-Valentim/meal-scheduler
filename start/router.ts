@@ -1,11 +1,14 @@
-import EstablishmentController from 'App/Controllers/EstablishmentController';
 import { BaseHttpResponse } from 'App/Controllers/Base/CrudController';
-import BodyMiddleware from 'App/Middleware/BodyMiddleware';
+
+import EstablishmentController from 'App/Controllers/EstablishmentController';
+
+import Orm from './orm';
 
 import Utils from 'App/Services/Utils';
+
+import BodyMiddleware from 'App/Middleware/BodyMiddleware';
 import ExceptionMiddleware from 'App/Middleware/ExceptionMiddleware';
-import Orm from './orm';
-import Logger from 'App/Middleware/Logger';
+import Logger from 'App/Services/Logger';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -58,10 +61,10 @@ Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
 })
 
 async function beforeMiddleware(event, context) {
-  BodyMiddleware.requestParser(event, context)        
+  BodyMiddleware.requestParser(event, context)
 }
 
 async function afterMiddleware(event, context, response) {
-  Logger.OutgoingResponse(event, context, response)
+  Logger.outgoingResponse(event, context, response)
   BodyMiddleware.responseParser(response, context)
 }
