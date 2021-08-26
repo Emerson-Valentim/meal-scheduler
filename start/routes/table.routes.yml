@@ -1,0 +1,27 @@
+tableCreate:
+  handler: ./start/router.tableCreate
+  events:
+    - http:
+        path: /table/create
+        method: post
+
+tableLoad:
+  handler: ./start/router.tableLoad
+  events:
+    - http:
+        path: /table/load/{id?}
+        method: get
+
+tableDelete:
+  handler: ./start/router.tableDelete
+  events:
+    - http:
+        path: /table/delete/{id}
+        method: delete
+
+tableUpdate:
+  handler: ./start/router.tableUpdate
+  events:
+    - http:
+        path: /table/update/{id}
+        method: put
