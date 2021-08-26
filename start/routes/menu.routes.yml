@@ -1,0 +1,27 @@
+menuCreate:
+  handler: ./start/router.menuCreate
+  events:
+    - http:
+        path: /menu/create
+        method: post
+
+menuLoad:
+  handler: ./start/router.menuLoad
+  events:
+    - http:
+        path: /menu/load/{id?}
+        method: get
+
+menuDelete:
+  handler: ./start/router.menuDelete
+  events:
+    - http:
+        path: /menu/delete/{id}
+        method: delete
+
+menuUpdate:
+  handler: ./start/router.menuUpdate
+  events:
+    - http:
+        path: /menu/update/{id}
+        method: put
