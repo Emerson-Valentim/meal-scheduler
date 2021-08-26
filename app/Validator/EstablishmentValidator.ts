@@ -15,7 +15,7 @@ export default class EstablishmentValidator implements BaseCrudValidator {
         .required(),
       category: Joi
         .string()
-        .allow(Object.values(Segmentation))
+        .valid(Object.values(Segmentation))
         .required()
     })
   }
@@ -39,7 +39,7 @@ export default class EstablishmentValidator implements BaseCrudValidator {
         description: Joi.string().optional(),
         category: Joi
         .string()
-        .allow(Object.values(Segmentation))
+        .valid(Object.values(Segmentation))
       })
     })
   }
