@@ -15,7 +15,7 @@ export default class TableValidator implements BaseCrudValidator {
         .required(),
       location: Joi
         .string()
-        .valid(Object.values(EnvironmentLocation))
+        .valid(...Object.values(EnvironmentLocation))
         .required(),
       description: Joi
         .string()
@@ -47,7 +47,7 @@ export default class TableValidator implements BaseCrudValidator {
           .boolean(),
         location: Joi
           .string()
-          .valid(Object.values(EnvironmentLocation)),
+          .valid(...Object.values(EnvironmentLocation)),
         description: Joi
           .string(),
         establishment_id: Joi
