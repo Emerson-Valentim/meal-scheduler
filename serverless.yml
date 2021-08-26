@@ -30,6 +30,9 @@ package:
     
 functions: 
   - ${file(./start/routes/establishment.routes.yml)}
+  - ${file(./start/routes/environment.routes.yml)}
+  - ${file(./start/routes/menu.routes.yml)}
+  - ${file(./start/routes/table.routes.yml)}
 
 custom:
   serverless-offline:
