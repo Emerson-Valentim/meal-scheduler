@@ -3,6 +3,7 @@
 		"**/*",
 	],
 	"exclude": [
+    "test/",
 		"node_modules",
 		"build"
 	],
@@ -28,7 +29,6 @@
 			]
 		},
 		"lib": [
-			"es5",
 			"es6"
 		],
 		"esModuleInterop": true
