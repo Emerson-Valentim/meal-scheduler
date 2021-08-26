@@ -12,10 +12,13 @@ export default class TableValidator implements BaseCrudValidator {
       seats: Joi
         .number()
         .required(),
-      environment_id: Joi
+        establishment_id: Joi
         .number()
-        .required()
-    })
+        .required(),
+      establishment: Joi
+        .number()
+        .required(),
+    }).rename('establishment_id', 'establishment', { alias: true })
   }
 
   public filterValidation() {
@@ -34,11 +37,9 @@ export default class TableValidator implements BaseCrudValidator {
       }),
       body: Joi.object({
         identification: Joi
-        .number(),
-      seats: Joi
-        .number(),
-      environment_id: Joi
-        .number(),
+          .number(),
+        seats: Joi
+          .number(),
       })
     })
   }

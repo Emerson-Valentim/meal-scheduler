@@ -17,8 +17,11 @@ export default class MenuValidator implements BaseCrudValidator {
         .required(),
       establishment_id: Joi
         .number()
-        .required()
-    })
+        .required(),
+      establishment: Joi
+      .number()
+      .required(),
+    }).rename('establishment_id', 'establishment', { alias: true })
   }
 
   public filterValidation() {
@@ -45,9 +48,6 @@ export default class MenuValidator implements BaseCrudValidator {
         value: Joi
           .number()
           .required(),
-        establishment_id: Joi
-          .number()
-          .required()
       })
     })
   }

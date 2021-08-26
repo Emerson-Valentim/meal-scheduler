@@ -22,8 +22,11 @@ export default class TableValidator implements BaseCrudValidator {
         .required(),
       establishment_id: Joi
         .number()
-        .required()
-    })
+        .required(),
+      establishment: Joi
+        .number()
+        .required(),
+    }).rename('establishment_id', 'establishment', { alias: true })
   }
 
   public filterValidation() {
@@ -50,8 +53,6 @@ export default class TableValidator implements BaseCrudValidator {
           .valid(...Object.values(EnvironmentLocation)),
         description: Joi
           .string(),
-        establishment_id: Joi
-          .number()
       })
     })
   }
