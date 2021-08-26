@@ -20,6 +20,7 @@ export default class MenuValidator implements BaseCrudValidator {
         .required(),
       establishment: Joi
       .number()
+      .precision(2)
       .required(),
     }).rename('establishment_id', 'establishment', { alias: true })
   }
@@ -40,14 +41,12 @@ export default class MenuValidator implements BaseCrudValidator {
       }),
       body: Joi.object({
         name: Joi
-          .string()
-          .required(),
+          .string(),
         ingredients: Joi
-          .string()
-          .required(),
+          .string(),
         value: Joi
           .number()
-          .required(),
+          .precision(2)
       })
     })
   }
