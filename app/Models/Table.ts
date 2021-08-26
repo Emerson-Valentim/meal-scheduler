@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Establishment from "./Establishment";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import Environment from "./Environment";
+import Reservation from "./Reservation";
 
 @Entity()
 export default class Table {
@@ -13,7 +14,10 @@ export default class Table {
   @Column()
   public seats: number
 
-  @ManyToOne(() => Establishment, establishment => establishment.table)
-  public establishment: Establishment
+  @ManyToOne(() => Environment, environment => environment.table)
+  public environment: Environment
+
+  @OneToMany(() => Reservation, reservation => reservation.table)
+  public reservation: Reservation[]
 
 }

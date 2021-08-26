@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import Environment from './Environment'
 import Menu from './Menu'
-import Table from './Table'
+import Reservation from './Reservation'
+import Schedule from './Schedule'
 
 export enum Segmentation {
   PUB = 'pub',
@@ -26,13 +27,17 @@ export default class Establishment {
   @Column()
   public category: Segmentation
 
+  @OneToOne(() => Schedule)
+  @JoinColumn()
+  public schedule: Schedule
+
   @OneToMany(() => Menu, menu => menu.establishment)
   public menu: Menu[]
 
   @OneToMany(() => Environment, environment => environment.establishment)
   public environment: Environment[]
 
-  @OneToMany(() => Table, table => table.establishment)
-  public table: Table[]
+  @OneToMany(() => Reservation, reservation => reservation.establishment)
+  public reservation: Reservation[]
 
 }

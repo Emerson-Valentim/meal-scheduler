@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Establishment from "./Establishment";
+import Table from "./Table";
 
 export enum EnvironmentLocation {
   INDOOR = 'indoor',
@@ -26,4 +27,7 @@ export default class Environment {
 
   @ManyToOne(() => Establishment, establishment => establishment.environment)
   public establishment: Establishment
+
+  @OneToMany(() => Table, table => table.environment)
+  public table: Table[]
 }
