@@ -2,6 +2,8 @@
   "scripts": {
     "start": "docker-compose up -d && docker-compose exec ubuntu sh",
     "off": "sls offline start",
+    "test": "node japaFile.js",
+    "coverage": "nyc npm run test",
     "migration:create": "typeorm migration:generate",
     "migration:run": "ts-node $(yarn bin typeorm) migration:run"
   },
@@ -26,6 +28,7 @@
     "joi": "^17.4.2",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.2.1",
     "typeorm": "^0.2.37",
     "typeorm-naming-strategies": "^2.0.0"
   }
