@@ -1,0 +1,27 @@
+environmentCreate:
+  handler: ./start/router.environmentCreate
+  events:
+    - http:
+        path: /environment/create
+        method: post
+
+environmentLoad:
+  handler: ./start/router.environmentLoad
+  events:
+    - http:
+        path: /environment/load/{id?}
+        method: get
+
+environmentDelete:
+  handler: ./start/router.environmentDelete
+  events:
+    - http:
+        path: /environment/delete/{id}
+        method: delete
+
+environmentUpdate:
+  handler: ./start/router.environmentUpdate
+  events:
+    - http:
+        path: /environment/update/{id}
+        method: put
