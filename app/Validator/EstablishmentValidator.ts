@@ -1,15 +1,22 @@
 
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
+import { Segmentation } from 'App/Models/Establishment'
 import Joi from 'joi'
 
 export default class EstablishmentValidator implements BaseCrudValidator {
 
   public createValidation() {
     return Joi.object({
-      name: Joi.string()
+      name: Joi
+        .string()
         .required(),
-      description: Joi.string()
+      description: Joi
+        .string()
         .required(),
+      category: Joi
+        .string()
+        .allow(Object.values(Segmentation))
+        .required()
     })
   }
 
@@ -21,7 +28,7 @@ export default class EstablishmentValidator implements BaseCrudValidator {
       }).allow(null)
     })
   }
-  
+
   public updateByIdValidation() {
     return Joi.object({
       pathParameters: Joi.object({
@@ -29,7 +36,10 @@ export default class EstablishmentValidator implements BaseCrudValidator {
       }),
       body: Joi.object({
         name: Joi.string().optional(),
-        description: Joi.string().optional()
+        description: Joi.string().optional(),
+        category: Joi
+        .string()
+        .allow(Object.values(Segmentation))
       })
     })
   }

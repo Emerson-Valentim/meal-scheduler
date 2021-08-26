@@ -3,6 +3,6 @@ import {EntityRepository, Repository} from 'typeorm';
 
 
 @EntityRepository(Establishment)
-export class EstablishmentRepository extends Repository<Establishment> {
+export default class EstablishmentRepository extends Repository<Establishment> {
 
 }
