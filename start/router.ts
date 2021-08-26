@@ -9,6 +9,9 @@ import Utils from 'App/Services/Utils';
 import BodyMiddleware from 'App/Middleware/BodyMiddleware';
 import ExceptionMiddleware from 'App/Middleware/ExceptionMiddleware';
 import Logger from 'App/Services/Logger';
+import EnvironmentController from 'App/Controllers/EnvironmentController';
+import TableController from 'App/Controllers/TableController';
+import MenuController from 'App/Controllers/MenuController';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -30,6 +33,33 @@ const routes: RouteDefinition = {
       delete: 'delete'
     },
     controller: EstablishmentController,
+  },
+  environment: {
+    methods: {
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
+    },
+    controller: EnvironmentController
+  },
+  table: {
+    methods: {
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
+    },
+    controller: TableController
+  },
+  menu: {
+    methods: {
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
+    },
+    controller: MenuController
   }
 };
 

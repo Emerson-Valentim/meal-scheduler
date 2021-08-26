@@ -39,7 +39,9 @@ export default abstract class CrudController<
 
       await this.repository.save(model)
 
-      return Utils.toHttpResponse(201, model)
+      const createdModel = await this.repository.findOne(model.id)
+
+      return Utils.toHttpResponse(201, createdModel)
     } catch (error) {
       throw error
     }

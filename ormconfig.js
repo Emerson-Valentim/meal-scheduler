@@ -1,4 +1,6 @@
 const { join } = require('path')
+const SnakeNamingStrategy = require('typeorm-naming-strategies')
+  .SnakeNamingStrategy;
 
 module.exports = {
   'type': 'postgres',
@@ -9,6 +11,7 @@ module.exports = {
   'database': process.env.PG_DATABASE,
   'synchronize': false,
   'logging': false,
+  'namingStrategy': new SnakeNamingStrategy(),
   'entities': [
     generateEntityDir()
   ],

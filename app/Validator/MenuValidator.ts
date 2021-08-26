@@ -1,23 +1,28 @@
 
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
-import { Segmentation } from 'App/Models/Establishment'
 import Joi from 'joi'
 
-export default class EstablishmentValidator implements BaseCrudValidator {
+export default class MenuValidator implements BaseCrudValidator {
 
   public createValidation() {
     return Joi.object({
       name: Joi
         .string()
         .required(),
-      description: Joi
+      ingredients: Joi
         .string()
         .required(),
-      category: Joi
-        .string()
-        .valid(...Object.values(Segmentation))
-        .required()
-    })
+      value: Joi
+        .number()
+        .required(),
+      establishment_id: Joi
+        .number()
+        .required(),
+      establishment: Joi
+      .number()
+      .precision(2)
+      .required(),
+    }).rename('establishment_id', 'establishment', { alias: true })
   }
 
   public filterValidation() {
@@ -35,11 +40,13 @@ export default class EstablishmentValidator implements BaseCrudValidator {
         id: Joi.number().required()
       }),
       body: Joi.object({
-        name: Joi.string().optional(),
-        description: Joi.string().optional(),
-        category: Joi
-        .string()
-        .valid(...Object.values(Segmentation))
+        name: Joi
+          .string(),
+        ingredients: Joi
+          .string(),
+        value: Joi
+          .number()
+          .precision(2)
       })
     })
   }
