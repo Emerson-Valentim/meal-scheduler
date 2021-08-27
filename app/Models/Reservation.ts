@@ -29,4 +29,13 @@ export default class Reservation {
   @ManyToOne(() => Establishment, establishment => establishment.reservation)
   public establishment: Establishment
 
+  /**
+   * @todo
+   * Add interval type
+   * date_start
+   * date_end
+   */
+  @Column('jsonb')
+  public interval: any
+
 }
