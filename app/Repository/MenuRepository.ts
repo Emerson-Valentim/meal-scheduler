@@ -1,8 +1,8 @@
-import Menu from 'App/Models/Menu';
+import MenuItem from 'App/Models/MenuItem';
 import {EntityRepository, Repository} from 'typeorm';
 
 
-@EntityRepository(Menu)
-export default class MenuRepository extends Repository<Menu> {
+@EntityRepository(MenuItem)
+export default class MenuRepository extends Repository<MenuItem> {
 
 }

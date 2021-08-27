@@ -1,6 +1,6 @@
 import Environment from 'App/Models/Environment'
 import Establishment, { Segmentation } from 'App/Models/Establishment'
-import Menu from 'App/Models/Menu'
+import MenuItem from 'App/Models/MenuItem'
 import Reservation from 'App/Models/Reservation'
 import Schedule from 'App/Models/Schedule'
 import test from 'japa'
@@ -30,12 +30,12 @@ test.group('Establishment Entity', () => {
 
   test('Should create an Establishment and create a relation with User', (assert) => {
     const establishmentEntity = new Establishment()
-    const menuEntity = new Menu()
+    const menuItemEntity = new MenuItem()
     const environmentEntity = new Environment()
     const reservationEntity = new Reservation()
     const scheduleEntity = new Schedule()
 
-    establishmentEntity.menu = [menuEntity]
+    establishmentEntity.menu = [menuItemEntity]
     assert.isDefined(establishmentEntity.menu)
 
     establishmentEntity.environment = [environmentEntity]

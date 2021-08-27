@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Establishment from "./Establishment";
 
 @Entity()
-export default class Menu {
+export default class MenuItem {
 
   @PrimaryGeneratedColumn()
   public id: number
