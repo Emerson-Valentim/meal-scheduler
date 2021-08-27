@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import Environment from './Environment'
-import Menu from './Menu'
+import MenuItem from './MenuItem'
 import Reservation from './Reservation'
 import Schedule from './Schedule'
 
@@ -31,8 +31,8 @@ export default class Establishment {
   @JoinColumn()
   public schedule: Schedule
 
-  @OneToMany(() => Menu, menu => menu.establishment)
-  public menu: Menu[]
+  @OneToMany(() => MenuItem, menu => menu.establishment)
+  public menu: MenuItem[]
 
   @OneToMany(() => Environment, environment => environment.establishment)
   public environment: Environment[]
