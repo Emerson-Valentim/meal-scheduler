@@ -1,4 +1,3 @@
-
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import Joi from 'joi'
 

@@ -1,4 +1,3 @@
-
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import { WeekDays } from 'App/Models/Schedule'
 import Joi from 'joi'

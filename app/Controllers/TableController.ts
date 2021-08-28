@@ -1,4 +1,3 @@
-
 import Table from 'App/Models/Table'
 import TableRepository from 'App/Repository/TableRepository'
 import TableValidator from 'App/Validator/TableValidator'
@@ -19,4 +18,3 @@ export default class TableController extends CrudController<
   }
 
 }
-

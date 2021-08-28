@@ -63,11 +63,15 @@ export default abstract class CrudController<
 
   public async load({ queryStringParameters, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
-      ({ pathParameters } = await BaseValidator.validate({ queryStringParameters, pathParameters }, this.validator, 'filterValidation'))
+      ({ pathParameters } = await BaseValidator.validate(
+        { queryStringParameters, pathParameters },
+        this.validator,
+        'filterValidation')
+      )
 
       if (pathParameters?.id) {
         const model = await this.repository.findOneOrFail(pathParameters.id)
-  
+
         return Utils.toHttpResponse(200, model)
       }
 
@@ -76,7 +80,7 @@ export default abstract class CrudController<
       if(allModels.length) {
         return Utils.toHttpResponse(200, allModels)
       }
-      
+
       return Utils.toHttpResponse(404, [])
     } catch (error) {
       throw error
@@ -85,8 +89,12 @@ export default abstract class CrudController<
 
   public async update({ headers, body, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
-      const { pathParameters: { id }, body: data } = await BaseValidator.validate({ body, pathParameters }, this.validator, 'updateByIdValidation')
-      
+      const { pathParameters: { id }, body: data } = await BaseValidator.validate(
+        { body, pathParameters },
+        this.validator,
+        'updateByIdValidation'
+      )
+
       const model = await this.repository.findOneOrFail(id)
 
       await this.repository.update(model, data)

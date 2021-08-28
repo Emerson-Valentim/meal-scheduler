@@ -1,8 +1,7 @@
-
+/* eslint-disable max-len */
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import { ReservationStatus } from 'App/Models/Reservation'
 import Joi from 'joi'
-import { DateTime } from 'luxon'
 
 export default class ReservationValidator implements BaseCrudValidator {
   public createValidation() {

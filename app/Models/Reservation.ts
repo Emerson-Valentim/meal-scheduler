@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Table from 'App/Models/Table'
-import Establishment from "./Establishment";
-import { DateTime } from "luxon";
+import Establishment from './Establishment';
+import { DateTime } from 'luxon';
 
 export enum ReservationStatus {
   SCHEDULED = 'scheduled',

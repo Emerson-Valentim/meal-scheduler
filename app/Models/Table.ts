@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Environment from "./Environment";
-import Reservation from "./Reservation";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Environment from './Environment';
+import Reservation from './Reservation';
 
 @Entity()
 export default class Table {
@@ -9,7 +9,7 @@ export default class Table {
   public id: number
 
   @Column()
-  public identification: number 
+  public identification: number
 
   @Column()
   public seats: number

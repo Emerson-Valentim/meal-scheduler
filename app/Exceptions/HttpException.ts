@@ -1,4 +1,4 @@
-import Logger from "App/Services/Logger"
+import Logger from 'App/Services/Logger'
 
 export default class HttpException extends Error {
 

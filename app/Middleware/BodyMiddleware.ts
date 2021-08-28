@@ -1,4 +1,4 @@
-import { APIGatewayEvent } from "aws-lambda";
+import { APIGatewayEvent } from 'aws-lambda';
 
 export default class BodyMiddleware {
   public static requestParser (event: APIGatewayEvent, context) {
@@ -10,7 +10,7 @@ export default class BodyMiddleware {
       throw error
     }
   }
-  
+
   public static responseParser (event, context) {
     try {
       if(typeof event.body === 'object') {

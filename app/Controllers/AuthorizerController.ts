@@ -1,9 +1,9 @@
-import UserRepository from "App/Repository/UserRepository"
+import UserRepository from 'App/Repository/UserRepository'
 import User from 'App/Models/User';
 import { getCustomRepository, Repository } from 'typeorm';
 import EstablishmentRepository from 'App/Repository/EstablishmentRepository';
 import Establishment from 'App/Models/Establishment';
-import HttpException from "App/Exceptions/HttpException";
+import HttpException from 'App/Exceptions/HttpException';
 
 type Credentials = {
   cnpj: string
@@ -16,7 +16,7 @@ export default class AuthorizerController {
   protected readonly establishmentRepository: Repository<Establishment> = getCustomRepository(EstablishmentRepository)
 
   public async authorize(event, context, callback) {
-    
+
     const { headers: { Authorization } } = event
 
     if (!Authorization) {

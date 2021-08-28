@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Establishment from "./Establishment";
-import Table from "./Table";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Establishment from './Establishment';
+import Table from './Table';
 
 export enum EnvironmentLocation {
   INDOOR = 'indoor',

@@ -1,5 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Establishment from "./Establishment";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import Establishment from './Establishment';
 
 @Entity()
 export default class MenuItem {

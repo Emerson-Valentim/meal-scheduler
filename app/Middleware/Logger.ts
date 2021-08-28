@@ -1,5 +1,5 @@
-import { BaseHttpResponse } from "App/Controllers/Base/CrudController";
-import { APIGatewayEvent } from "aws-lambda";
+import { BaseHttpResponse } from 'App/Controllers/Base/CrudController';
+import { APIGatewayEvent } from 'aws-lambda';
 
 export default abstract class Logger {
   public static outgoingResponse(event: APIGatewayEvent, context, response: BaseHttpResponse | null) {

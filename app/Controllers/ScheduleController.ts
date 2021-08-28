@@ -18,4 +18,3 @@ export default class ScheduleController extends CrudController<
   }
 
 }
-
