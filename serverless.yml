@@ -28,7 +28,7 @@ package:
   include:
     - ormconfig.js
     
-functions: 
+functions:
   - ${file(./start/routes/establishment.routes.yml)}
   - ${file(./start/routes/environment.routes.yml)}
   - ${file(./start/routes/menuitem.routes.yml)}

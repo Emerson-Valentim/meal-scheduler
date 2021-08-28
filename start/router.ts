@@ -12,6 +12,10 @@ import Logger from 'App/Services/Logger';
 import EnvironmentController from 'App/Controllers/EnvironmentController';
 import TableController from 'App/Controllers/TableController';
 import MenuItemController from 'App/Controllers/MenuItemController';
+import ReservationController from 'App/Controllers/ReservationController';
+import ScheduleController from 'App/Controllers/ScheduleController';
+import UserController from 'App/Controllers/UserController';
+import AuthorizerController from 'App/Controllers/AuthorizerController';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -60,12 +64,45 @@ const routes: RouteDefinition = {
       delete: 'delete'
     },
     controller: MenuItemController
+  },
+  user: {
+    methods: {
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
+    },
+    controller: UserController
+  },
+  schedule: {
+    methods: {
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
+    },
+    controller: ScheduleController
+  },
+  reservation: {
+    methods: {
+      create: 'create',
+      update: 'update',
+      load: 'load',
+      delete: 'delete'
+    },
+    controller: ReservationController
+  },
+  authorizer: {
+    methods: {
+      authorize: 'authorize'
+    },
+    controller: AuthorizerController
   }
 };
 
 Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
   Object.values(methods).forEach((controllerMethod) => {
-    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context): Promise<BaseHttpResponse> => {
+    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context, callback): Promise<BaseHttpResponse> => {
 
       await Orm.init()
 
@@ -78,7 +115,7 @@ Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
       
       try {
         await beforeMiddleware(event, context)        
-        response = await new controller()[controllerMethod as any](event, context)
+        response = await new controller()[controllerMethod as any](event, context, callback)
       } catch( error) {
         ExceptionMiddleware.handle(response, error);
       }

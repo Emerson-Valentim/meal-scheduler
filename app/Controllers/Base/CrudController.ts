@@ -83,7 +83,7 @@ export default abstract class CrudController<
     }
   }
 
-  public async update({ body, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
+  public async update({ headers, body, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
       const { pathParameters: { id }, body: data } = await BaseValidator.validate({ body, pathParameters }, this.validator, 'updateByIdValidation')
       

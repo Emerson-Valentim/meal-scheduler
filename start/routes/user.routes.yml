@@ -1,3 +1,6 @@
+basicAuthorizer:
+  handler: ./start/router.authorizerAuthorize
+
 userCreate:
   handler: ./start/router.userCreate
   events:
@@ -25,3 +28,6 @@ userUpdate:
     - http:
         path: /user/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request
