@@ -1,0 +1,27 @@
+userCreate:
+  handler: ./start/router.userCreate
+  events:
+    - http:
+        path: /user/create
+        method: post
+
+userLoad:
+  handler: ./start/router.userLoad
+  events:
+    - http:
+        path: /user/load/{id?}
+        method: get
+
+userDelete:
+  handler: ./start/router.userDelete
+  events:
+    - http:
+        path: /user/delete/{id}
+        method: delete
+
+userUpdate:
+  handler: ./start/router.userUpdate
+  events:
+    - http:
+        path: /user/update/{id}
+        method: put
