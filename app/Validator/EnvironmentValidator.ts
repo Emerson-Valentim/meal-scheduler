@@ -3,7 +3,7 @@ import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import { EnvironmentLocation } from 'App/Models/Environment'
 import Joi from 'joi'
 
-export default class TableValidator implements BaseCrudValidator {
+export default class EnvironmentValidator implements BaseCrudValidator {
 
   public createValidation() {
     return Joi.object({
