@@ -1,4 +1,3 @@
-
 import MenuItem from 'App/Models/MenuItem'
 import MenuItemRepository from 'App/Repository/MenuItemRepository'
 import MenuItemValidator from 'App/Validator/MenuItemValidator'
@@ -19,4 +18,3 @@ export default class MenuItemController extends CrudController<
   }
 
 }
-

@@ -1,9 +1,15 @@
-import { BaseHttpResponse } from "App/Controllers/Base/CrudController";
-import { APIGatewayEvent } from "aws-lambda";
+import { BaseHttpResponse } from 'App/Controllers/Base/CrudController';
+import { APIGatewayEvent } from 'aws-lambda';
 
 export default abstract class Logger {
   public static outgoingResponse(event: APIGatewayEvent, context, response: BaseHttpResponse | null) {
-    const { body, headers, httpMethod, path, requestContext: { identity: { sourceIp } = { sourceIp: 'Authorizer' } } } = event
+    const {
+      body,
+      headers,
+      httpMethod,
+      path,
+      requestContext: { identity: { sourceIp } = { sourceIp: 'Authorizer' } }
+    } = event
     const { awsRequestId } = context
     const request = {
       body,

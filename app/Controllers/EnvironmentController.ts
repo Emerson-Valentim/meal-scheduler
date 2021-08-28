@@ -1,4 +1,3 @@
-
 import Environment from 'App/Models/Environment'
 import EnvironmentRepository from 'App/Repository/EnvironmentRepository'
 import EnvironmentValidator from 'App/Validator/EnvironmentValidator'
@@ -20,4 +19,3 @@ export default class EnvironmentController extends CrudController<
   }
 
 }
-

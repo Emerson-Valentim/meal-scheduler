@@ -6,7 +6,7 @@ export default abstract class BaseValidator {
     try {
       const schema = await validator[validatorMethod]().validateAsync(body)
       return schema
-    } catch (error) {      
+    } catch (error) {
       const detailedError = this.buildError(error)
       throw new HttpException(detailedError.message.trim(), detailedError.statusCode, error)
     }

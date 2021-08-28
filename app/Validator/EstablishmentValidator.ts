@@ -1,4 +1,3 @@
-
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import { Segmentation } from 'App/Models/Establishment'
 import Joi from 'joi'
