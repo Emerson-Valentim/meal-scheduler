@@ -2,6 +2,7 @@ import Establishment from '../../app/Models/Establishment'
 import Reservation, { ReservationStatus } from '../../app/Models/Reservation'
 import Table from '../../app/Models/Table'
 import test from 'japa'
+import { DateTime } from 'luxon'
 
 test.group('Reservation Entity', () => {
 
@@ -22,8 +23,11 @@ test.group('Reservation Entity', () => {
     reservationEntity.status = ReservationStatus.CANCELED
     assert.isDefined(reservationEntity.status)
 
-    reservationEntity.interval = {}
-    assert.isDefined(reservationEntity.status)
+    reservationEntity.interval = {
+      start: DateTime.now(),
+      end: DateTime.now()
+    }
+    assert.isDefined(reservationEntity.interval)
     
     reservationEntity.id = 1
     assert.isDefined(reservationEntity.id)
