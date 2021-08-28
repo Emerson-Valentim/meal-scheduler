@@ -3,6 +3,6 @@ import {EntityRepository, Repository} from 'typeorm';
 
 
 @EntityRepository(MenuItem)
-export default class MenuRepository extends Repository<MenuItem> {
+export default class MenuItemRepository extends Repository<MenuItem> {
 
 }

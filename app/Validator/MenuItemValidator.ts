@@ -2,7 +2,7 @@
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import Joi from 'joi'
 
-export default class MenuValidator implements BaseCrudValidator {
+export default class MenuItemValidator implements BaseCrudValidator {
 
   public createValidation() {
     return Joi.object({
