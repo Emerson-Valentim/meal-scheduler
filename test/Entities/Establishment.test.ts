@@ -1,8 +1,8 @@
-import Environment from 'App/Models/Environment'
-import Establishment, { Segmentation } from 'App/Models/Establishment'
-import MenuItem from 'App/Models/MenuItem'
-import Reservation from 'App/Models/Reservation'
-import Schedule from 'App/Models/Schedule'
+import Environment from '../../app/Models/Environment'
+import Establishment, { Segmentation } from '../../app/Models/Establishment'
+import MenuItem from '../../app/Models/MenuItem'
+import Reservation from '../../app/Models/Reservation'
+import Schedule from '../../app/Models/Schedule'
 import test from 'japa'
 
 test.group('Establishment Entity', () => {

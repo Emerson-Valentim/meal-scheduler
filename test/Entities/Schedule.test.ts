@@ -1,4 +1,4 @@
-import Schedule from 'App/Models/Schedule'
+import Schedule from '../../app/Models/Schedule'
 import test from 'japa'
 
 test.group('Schedule Entity', () => {
