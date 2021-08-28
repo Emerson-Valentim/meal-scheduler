@@ -3,7 +3,7 @@ import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import Joi from 'joi'
 
 export default class UserValidator implements BaseCrudValidator {
-  createValidation() {
+  public createValidation() {
     return Joi.object({
       cnpj: Joi
         .string()
@@ -25,17 +25,51 @@ export default class UserValidator implements BaseCrudValidator {
         .max(16),
       establishment_id: Joi
         .number()
-        .optional()
-    }).required()
-  }
-  filterValidation() {
-    throw new Error('Method not implemented.')
-  }
-  updateByIdValidation() {
-    throw new Error('Method not implemented.')
-  }
-  deleteByIdValidation() {
-    throw new Error('Method not implemented.')
+        .optional(),
+      establishment: Joi
+        .number()
+        .optional(),
+    })
+      .required()
+      .rename('establishment_id', 'establishment', { alias: true })
   }
 
+  public filterValidation() {
+    return Joi.object({
+      pathParameters: Joi.object({
+        id: Joi.number()
+      })
+    })
+  }
+
+  public updateByIdValidation() {
+    return Joi.object({
+      body: Joi.object({
+        cnpj: Joi
+          .string()
+          .required()
+          .min(14)
+          .regex(/^[0-9]*$/)
+          .message('CNPJ is invalid'),
+        old_password: Joi
+          .string()
+          .required()
+          .min(8)
+          .max(16),
+        password: Joi
+          .string()
+          .required()
+          .min(8)
+          .max(16),
+      })
+    }).required()
+  }
+
+  public deleteByIdValidation() {
+    return Joi.object({
+      pathParameters: Joi.object({
+        id: Joi.number()
+      }),
+    })
+  }
 }

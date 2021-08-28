@@ -12,20 +12,33 @@ export default class TableValidator implements BaseCrudValidator {
       seats: Joi
         .number()
         .required(),
-        establishment_id: Joi
+      establishment_id: Joi
         .number()
         .required(),
       establishment: Joi
         .number()
         .required(),
-    }).rename('establishment_id', 'establishment', { alias: true })
+      environment_id: Joi
+        .number()
+        .required(),
+      environment: Joi
+        .number()
+        .required(),
+    })
+      .rename('establishment_id', 'establishment', { alias: true })
+      .rename('environment_id', 'environment', { alias: true })
   }
 
   public filterValidation() {
     return Joi.object({
-      queryStringParameters: Joi.object({}).optional().allow(null),
+      queryStringParameters: Joi
+        .object({})
+        .optional()
+        .allow(null),
       pathParameters: Joi.object({
-        id: Joi.number().optional()
+        id: Joi
+          .number()
+          .optional()
       }).allow(null)
     })
   }
@@ -33,20 +46,26 @@ export default class TableValidator implements BaseCrudValidator {
   public updateByIdValidation() {
     return Joi.object({
       pathParameters: Joi.object({
-        id: Joi.number().required()
+        id: Joi
+          .number()
+          .required()
       }),
       body: Joi.object({
         identification: Joi
-          .number(),
+          .number()
+          .optional(),
         seats: Joi
-          .number(),
-      })
+          .number()
+          .optional(),
+      }).required()
     })
   }
 
   public deleteByIdValidation() {
     return Joi.object({
-      id: Joi.number().required()
+      id: Joi
+        .number()
+        .required()
     })
   }
 }

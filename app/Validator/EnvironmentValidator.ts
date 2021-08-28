@@ -45,15 +45,19 @@ export default class TableValidator implements BaseCrudValidator {
       }),
       body: Joi.object({
         smoking_allowed: Joi
-          .boolean(),
+          .boolean()
+          .optional(),
         pets_allowed: Joi
-          .boolean(),
+          .boolean()
+          .optional(),
         location: Joi
           .string()
-          .valid(...Object.values(EnvironmentLocation)),
+          .valid(...Object.values(EnvironmentLocation))
+          .optional(),
         description: Joi
-          .string(),
-      })
+          .string()
+          .optional(),
+      }).required()
     })
   }
 
