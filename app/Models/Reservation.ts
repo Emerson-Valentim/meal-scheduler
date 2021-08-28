@@ -3,9 +3,9 @@ import Table from 'App/Models/Table'
 import Establishment from "./Establishment";
 
 export enum ReservationStatus {
-  scheduled = 'SCHEDULED',
-  canceled = 'CANCELED',
-  finished = 'FINISHED'
+  SCHEDULED = 'scheduled',
+  CANCELED = 'canceled',
+  FINISHED = 'finished'
 }
 
 @Entity()
