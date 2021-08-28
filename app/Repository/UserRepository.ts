@@ -1,5 +1,5 @@
 import User from 'App/Models/User';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 
 
 @EntityRepository(User)
