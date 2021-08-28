@@ -4,6 +4,9 @@ environmentCreate:
     - http:
         path: /environment/create
         method: post
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 environmentLoad:
   handler: ./start/router.environmentLoad
@@ -18,6 +21,9 @@ environmentDelete:
     - http:
         path: /environment/delete/{id}
         method: delete
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 environmentUpdate:
   handler: ./start/router.environmentUpdate
@@ -25,3 +31,6 @@ environmentUpdate:
     - http:
         path: /environment/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request

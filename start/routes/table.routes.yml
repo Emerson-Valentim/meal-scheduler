@@ -4,6 +4,9 @@ tableCreate:
     - http:
         path: /table/create
         method: post
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 tableLoad:
   handler: ./start/router.tableLoad
@@ -18,6 +21,9 @@ tableDelete:
     - http:
         path: /table/delete/{id}
         method: delete
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 tableUpdate:
   handler: ./start/router.tableUpdate
@@ -25,3 +31,6 @@ tableUpdate:
     - http:
         path: /table/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request

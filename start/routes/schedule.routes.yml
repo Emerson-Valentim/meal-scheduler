@@ -4,6 +4,9 @@ scheduleCreate:
     - http:
         path: /schedule/create
         method: post
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 scheduleLoad:
   handler: ./start/router.scheduleLoad
@@ -18,6 +21,9 @@ scheduleDelete:
     - http:
         path: /schedule/delete/{id}
         method: delete
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 scheduleUpdate:
   handler: ./start/router.scheduleUpdate
@@ -25,3 +31,6 @@ scheduleUpdate:
     - http:
         path: /schedule/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request
