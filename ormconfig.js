@@ -37,12 +37,12 @@ function generateMigrationDir(mode = '') {
 
 function generateSubscriberDir() {
   return process.env.ENV === 'local'
-    ? join(__dirname, '.build', 'database', 'subscriber', '*.{ts,js}') 
+    ? join(__dirname, '.build', 'database', 'subscriber', '*.{ts,js}')
     : join(__dirname, 'database', 'subscriber', '*.{ts,js}')
 }
 
 function generateEntityDir() {
   return process.env.ENV === 'local'
-    ? join(__dirname, '.build', 'app', 'Models', '*.{ts,js}') 
+    ? join(__dirname, '.build', 'app', 'Models', '*.{ts,js}')
     : join(__dirname, 'app', 'Models', '*.{ts,js}')
 }

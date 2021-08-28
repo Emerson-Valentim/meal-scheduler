@@ -4,7 +4,7 @@ import test from 'japa'
 test.group('TableValidator', () => {
 
   const validator = new TableValidator()
-  
+
   test('Should validate if create schema accept all properties', (assert) => {
     const schema = validator.createValidation()
   })
