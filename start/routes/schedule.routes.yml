@@ -1,35 +1,35 @@
-tableCreate:
-  handler: ./start/router.tableCreate
+scheduleCreate:
+  handler: ./start/router.scheduleCreate
   events:
     - http:
-        path: /table/create
+        path: /schedule/create
         method: post
         authorizer: 
           name: basicAuthorizer
           type: request
 
-tableLoad:
-  handler: ./start/router.tableLoad
+scheduleLoad:
+  handler: ./start/router.scheduleLoad
   events:
     - http:
-        path: /table/load/{id?}
+        path: /schedule/load/{id?}
         method: get
 
-tableDelete:
-  handler: ./start/router.tableDelete
+scheduleDelete:
+  handler: ./start/router.scheduleDelete
   events:
     - http:
-        path: /table/delete/{id}
+        path: /schedule/delete/{id}
         method: delete
         authorizer: 
           name: basicAuthorizer
           type: request
 
-tableUpdate:
-  handler: ./start/router.tableUpdate
+scheduleUpdate:
+  handler: ./start/router.scheduleUpdate
   events:
     - http:
-        path: /table/update/{id}
+        path: /schedule/update/{id}
         method: put
         authorizer: 
           name: basicAuthorizer

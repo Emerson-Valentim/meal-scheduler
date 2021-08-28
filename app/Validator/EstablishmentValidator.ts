@@ -38,9 +38,10 @@ export default class EstablishmentValidator implements BaseCrudValidator {
         name: Joi.string().optional(),
         description: Joi.string().optional(),
         category: Joi
-        .string()
-        .valid(...Object.values(Segmentation))
-      })
+          .string()
+          .valid(...Object.values(Segmentation))
+          .optional()
+      }).required()
     })
   }
 

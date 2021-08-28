@@ -1,0 +1,39 @@
+basicAuthorizer:
+  handler: ./start/router.authorizerAuthorize
+
+userCreate:
+  handler: ./start/router.userCreate
+  events:
+    - http:
+        path: /user/create
+        method: post
+
+userLoad:
+  handler: ./start/router.userLoad
+  events:
+    - http:
+        path: /user/load/{id?}
+        method: get
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+
+userDelete:
+  handler: ./start/router.userDelete
+  events:
+    - http:
+        path: /user/delete/{id}
+        method: delete
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+
+userUpdate:
+  handler: ./start/router.userUpdate
+  events:
+    - http:
+        path: /user/update/{id}
+        method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request

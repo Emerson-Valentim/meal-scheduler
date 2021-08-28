@@ -1,5 +1,5 @@
-import Establishment from 'App/Models/Establishment'
-import User from 'App/Models/User'
+import Establishment from '../../app/Models/Establishment'
+import User from '../../app/Models/User'
 import test from 'japa'
 
 test.group('User Entity', () => {

@@ -1,5 +1,5 @@
-import Establishment from 'App/Models/Establishment'
-import MenuItem from 'App/Models/MenuItem'
+import Establishment from '../../app/Models/Establishment'
+import MenuItem from '../../app/Models/MenuItem'
 import test from 'japa'
 
 test.group('Menu Entity', () => {

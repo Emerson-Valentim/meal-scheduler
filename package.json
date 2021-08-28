@@ -5,11 +5,13 @@
     "coverage": "nyc npm run test",
     "test": "node -r ts-node/register -r tsconfig-paths/register japaFile.ts",
     "migration:create": "typeorm migration:generate",
-    "migration:run": "ts-node $(yarn bin typeorm) migration:run"
+    "migration:run": "ts-node $(yarn bin typeorm) migration:run",
+    "lint": "eslint -/ --fix"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.83",
     "@types/hapi__joi": "^17.1.7",
+    "@types/luxon": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
@@ -27,6 +29,7 @@
   "dependencies": {
     "@types/node": "^16.7.1",
     "joi": "^17.4.2",
+    "luxon": "^2.0.2",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.2.1",

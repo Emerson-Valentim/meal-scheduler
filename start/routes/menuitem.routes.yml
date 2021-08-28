@@ -4,6 +4,9 @@ menuCreate:
     - http:
         path: /menu/create
         method: post
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 menuLoad:
   handler: ./start/router.menuLoad
@@ -18,6 +21,9 @@ menuDelete:
     - http:
         path: /menu/delete/{id}
         method: delete
+        authorizer: 
+          name: basicAuthorizer
+          type: request
 
 menuUpdate:
   handler: ./start/router.menuUpdate
@@ -25,3 +31,6 @@ menuUpdate:
     - http:
         path: /menu/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request

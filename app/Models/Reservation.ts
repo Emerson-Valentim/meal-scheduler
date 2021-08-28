@@ -1,11 +1,17 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Table from 'App/Models/Table'
 import Establishment from "./Establishment";
+import { DateTime } from "luxon";
 
 export enum ReservationStatus {
-  scheduled = 'SCHEDULED',
-  canceled = 'CANCELED',
-  finished = 'FINISHED'
+  SCHEDULED = 'scheduled',
+  CANCELED = 'canceled',
+  FINISHED = 'finished'
+}
+
+export type Interval = {
+  start: DateTime
+  end: DateTime
 }
 
 @Entity()
@@ -29,13 +35,7 @@ export default class Reservation {
   @ManyToOne(() => Establishment, establishment => establishment.reservation)
   public establishment: Establishment
 
-  /**
-   * @todo
-   * Add interval type
-   * date_start
-   * date_end
-   */
   @Column('jsonb')
-  public interval: any
+  public interval: Interval
 
 }

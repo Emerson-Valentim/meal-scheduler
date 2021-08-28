@@ -19,17 +19,11 @@ module.exports = {
       'single'
     ],
     'indent': ['error', 2],
-    'max-len': [
-      'error',
-      {
-        'code': 120,
-        'tabWidth': 2,
-        'ignoreTemplateLiterals': true,
-        'ignoreString': true
-      }
-    ],
+    'max-len': [2, 120, 4, {'ignoreUrls': true}],
     'no-multi-spaces': ['error'],
     'no-mixed-spaces-and-tabs': ['error'],
     'linebreak-style': ['error', 'unix'],
+    'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 0, 'maxBOF': 0 }],
+    'no-trailing-spaces': ['error']
   },
 };

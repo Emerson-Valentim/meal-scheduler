@@ -1,0 +1,33 @@
+reservationCreate:
+  handler: ./start/router.reservationCreate
+  events:
+    - http:
+        path: /reservation/create
+        method: post
+
+reservationLoad:
+  handler: ./start/router.reservationLoad
+  events:
+    - http:
+        path: /reservation/load/{id?}
+        method: get
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+
+reservationDelete:
+  handler: ./start/router.reservationDelete
+  events:
+    - http:
+        path: /reservation/delete/{id}
+        method: delete
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+
+reservationUpdate:
+  handler: ./start/router.reservationUpdate
+  events:
+    - http:
+        path: /reservation/update/{id}
+        method: put

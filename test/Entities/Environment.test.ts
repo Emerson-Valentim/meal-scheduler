@@ -1,6 +1,6 @@
-import Environment, { EnvironmentLocation } from 'App/Models/Environment'
-import Establishment from 'App/Models/Establishment'
-import Table from 'App/Models/Table'
+import Environment, { EnvironmentLocation } from '../../app/Models/Environment'
+import Establishment from '../../app/Models/Establishment'
+import Table from '../../app/Models/Table'
 import test from 'japa'
 
 test.group('Environment Entity', () => {

@@ -1,6 +1,6 @@
-import Environment from 'App/Models/Environment'
-import Reservation from 'App/Models/Reservation'
-import Table from 'App/Models/Table'
+import Environment from '../../app/Models/Environment'
+import Reservation from '../../app/Models/Reservation'
+import Table from '../../app/Models/Table'
 import test from 'japa'
 
 test.group('Table Entity', () => {

@@ -28,11 +28,14 @@ package:
   include:
     - ormconfig.js
     
-functions: 
+functions:
   - ${file(./start/routes/establishment.routes.yml)}
   - ${file(./start/routes/environment.routes.yml)}
-  - ${file(./start/routes/menu.routes.yml)}
+  - ${file(./start/routes/menuitem.routes.yml)}
   - ${file(./start/routes/table.routes.yml)}
+  - ${file(./start/routes/reservation.routes.yml)}
+  - ${file(./start/routes/schedule.routes.yml)}
+  - ${file(./start/routes/user.routes.yml)}
 
 custom:
   serverless-offline:
