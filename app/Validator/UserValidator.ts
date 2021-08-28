@@ -67,9 +67,7 @@ export default class UserValidator implements BaseCrudValidator {
 
   public deleteByIdValidation() {
     return Joi.object({
-      pathParameters: Joi.object({
-        id: Joi.number()
-      }),
+      id: Joi.number()
     })
   }
 }
