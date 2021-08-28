@@ -1,0 +1,27 @@
+scheduleCreate:
+  handler: ./start/router.scheduleCreate
+  events:
+    - http:
+        path: /schedule/create
+        method: post
+
+scheduleLoad:
+  handler: ./start/router.scheduleLoad
+  events:
+    - http:
+        path: /schedule/load/{id?}
+        method: get
+
+scheduleDelete:
+  handler: ./start/router.scheduleDelete
+  events:
+    - http:
+        path: /schedule/delete/{id}
+        method: delete
+
+scheduleUpdate:
+  handler: ./start/router.scheduleUpdate
+  events:
+    - http:
+        path: /schedule/update/{id}
+        method: put
