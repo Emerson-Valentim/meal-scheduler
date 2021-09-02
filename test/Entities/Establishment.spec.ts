@@ -40,7 +40,7 @@ test.group('Establishment Entity', () => {
 
     establishmentEntity.environment = [environmentEntity]
     assert.isDefined(establishmentEntity.environment)
-    
+
     establishmentEntity.reservation = [reservationEntity]
     assert.isDefined(establishmentEntity.reservation)
 

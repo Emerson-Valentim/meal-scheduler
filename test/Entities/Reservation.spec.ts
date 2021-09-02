@@ -8,7 +8,7 @@ test.group('Reservation Entity', () => {
 
   test('Should create a Schedule', (assert) => {
     const reservationEntity = new Reservation()
-    assert.isDefined(reservationEntity)    
+    assert.isDefined(reservationEntity)
   })
 
   test('Should create an Schedule and manipulate his attributes', (assert) => {
@@ -16,7 +16,7 @@ test.group('Reservation Entity', () => {
 
     reservationEntity.cpf = 'cpf'
     assert.isDefined(reservationEntity.cpf)
-  
+
     reservationEntity.phone = 'phone'
     assert.isDefined(reservationEntity.phone)
 
@@ -28,7 +28,7 @@ test.group('Reservation Entity', () => {
       end: DateTime.now()
     }
     assert.isDefined(reservationEntity.interval)
-    
+
     reservationEntity.id = 1
     assert.isDefined(reservationEntity.id)
   })
@@ -37,7 +37,7 @@ test.group('Reservation Entity', () => {
     const reservationEntity = new Reservation()
     const tableEntity = new Table()
     const establishmentEntity = new Establishment()
-    
+
     reservationEntity.establishment = establishmentEntity
     assert.isDefined(reservationEntity.establishment)
 

@@ -11,12 +11,12 @@ test.group('User Entity', () => {
 
   test('Should create an User and manipulate his attributes', (assert) => {
     const userEntity = new User()
-    userEntity.cnpj = 'cnpj'    
+    userEntity.cnpj = 'cnpj'
     assert.isDefined(userEntity.cnpj)
-    
+
     userEntity.password = 'password'
     assert.isDefined(userEntity.password)
-    
+
     userEntity.phone = 'phone'
     assert.isDefined(userEntity.phone)
 
@@ -27,7 +27,7 @@ test.group('User Entity', () => {
   test('Should create an User and create a relation with Establishment', (assert) => {
     const userEntity = new User()
     const establishmentEntity = new Establishment()
-    
+
     userEntity.establishment = establishmentEntity
     assert.isDefined(userEntity.establishment)
   })

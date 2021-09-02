@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } 
 import Establishment from './Establishment';
 
 @Entity()
-@Unique(['cnpj'])
+@Unique(['cnpj', 'phone'])
 export default class User {
 
   @PrimaryGeneratedColumn()

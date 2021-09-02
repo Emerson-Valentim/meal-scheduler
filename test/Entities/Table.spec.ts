@@ -7,7 +7,7 @@ test.group('Table Entity', () => {
 
   test('Should create a Table', (assert) => {
     const tableEntity = new Table()
-    assert.isDefined(tableEntity)    
+    assert.isDefined(tableEntity)
   })
 
   test('Should create an Table and manipulate his attributes', (assert) => {
@@ -15,7 +15,7 @@ test.group('Table Entity', () => {
 
     tableEntity.identification = 1
     assert.isDefined(tableEntity.identification)
-    
+
     tableEntity.seats = 1
     assert.isDefined(tableEntity.seats)
 
@@ -27,7 +27,7 @@ test.group('Table Entity', () => {
     const tableEntity = new Table()
     const environmentEntity = new Environment()
     const reservationEntity = new Reservation()
-    
+
     tableEntity.environment = environmentEntity
     assert.isDefined(tableEntity.environment)
 

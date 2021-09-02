@@ -6,7 +6,7 @@ test.group('Menu Entity', () => {
 
   test('Should create a Menu', (assert) => {
     const menuItemEntity = new MenuItem()
-    assert.isDefined(menuItemEntity)    
+    assert.isDefined(menuItemEntity)
   })
 
   test('Should create an Menu and manipulate his attributes', (assert) => {

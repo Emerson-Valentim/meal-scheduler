@@ -51,7 +51,7 @@ test.group('ReservationValidator', () => {
     }
 
     const { value: validateFull, error } = schema.validate({ pathParameters, body })
-    
+
     assert.isUndefined(error)
     assert.isDefined(validateFull)
     assert.hasAllDeepKeys(validateFull, { pathParameters, body })
