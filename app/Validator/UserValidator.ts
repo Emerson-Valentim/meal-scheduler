@@ -25,12 +25,8 @@ export default class UserValidator implements BaseCrudValidator {
       establishment_id: Joi
         .number()
         .optional(),
-      establishment: Joi
-        .number()
-        .optional(),
     })
       .required()
-      .rename('establishment_id', 'establishment', { alias: true })
   }
 
   public filterValidation() {

@@ -25,7 +25,7 @@ export default class Environment {
   @Property()
   public description: string
 
-  @ManyToOne(() => Establishment)
+  @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id'})
   public establishment_id: Establishment
 
   @OneToMany('Table', 'environment_id')

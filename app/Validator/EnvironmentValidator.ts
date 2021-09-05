@@ -22,10 +22,7 @@ export default class EnvironmentValidator implements BaseCrudValidator {
       establishment_id: Joi
         .number()
         .required(),
-      establishment: Joi
-        .number()
-        .required(),
-    }).rename('establishment_id', 'establishment', { alias: true })
+    })
   }
 
   public filterValidation() {

@@ -26,15 +26,9 @@ export default class ReservationValidator implements BaseCrudValidator {
       table_id: Joi
         .number()
         .required(),
-      table: Joi
-        .number()
-        .optional(),
       establishment_id: Joi
         .number()
         .required(),
-      establishment: Joi
-        .number()
-        .optional(),
       interval: Joi
         .object({
           start: Joi.string().regex(/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+|)(?:Z|(?:\+|\-)(?:\d{2}):?(?:\d{2}))/).required(),
@@ -42,8 +36,6 @@ export default class ReservationValidator implements BaseCrudValidator {
         })
         .required()
     })
-      .rename('table_id', 'table', { alias: true })
-      .rename('establishment_id', 'establishment', { alias: true })
   }
 
   public filterValidation() {

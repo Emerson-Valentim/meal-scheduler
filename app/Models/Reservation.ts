@@ -29,10 +29,10 @@ export default class Reservation {
   @Property()
   public status: ReservationStatus
 
-  @ManyToOne(() => Table, { mapToPk: true })
+  @ManyToOne(() => Table, { mapToPk: true, fieldName: 'table_id' })
   public table_id: Table
 
-  @ManyToOne(() => Establishment, { mapToPk: true })
+  @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id' })
   public establishment_id: Establishment
 
   @Property()

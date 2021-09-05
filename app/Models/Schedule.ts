@@ -29,6 +29,10 @@ export default class Schedule {
   @Property()
   public definition: Week
 
-  @OneToOne(() => Establishment, establishment => establishment.schedule_id, { owner: true, orphanRemoval: true })
+  @OneToOne(() => Establishment, establishment => establishment.schedule_id, {
+    owner: true,
+    orphanRemoval: true,
+    fieldName: 'establishment_id'
+  })
   public establishment_id: Establishment
 }

@@ -2,9 +2,9 @@
   "scripts": {
     "start": "docker-compose up -d && docker-compose exec ubuntu sh",
     "off": "sls offline start",
-    "coverage": "nyc npm run test",
     "migration:create": "npx mikro-orm migration:create",
     "migration:run": "npx mikro-orm migration:up",
+    "coverage": "nyc npm run test",
     "test": "node -r ts-node/register -r tsconfig-paths/register japaFile.ts",
     "lint": "eslint . --ext .ts --fix"
   },
