@@ -13,4 +13,5 @@ export default class Orm {
       throw new HttpException('Error on database connection', 503, error)
     }
   }
+
 }
