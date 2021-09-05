@@ -1,6 +1,7 @@
 import User from 'App/Models/User';
-import Establishment from 'App/Models/Establishment';
 import HttpException from 'App/Exceptions/HttpException';
+import Orm from 'Start/orm';
+import { Callback } from 'aws-lambda';
 
 type Credentials = {
   cnpj: string
@@ -9,12 +10,14 @@ type Credentials = {
 
 export default class AuthorizerController {
 
-  public async authorize(event, context, callback) {
+  protected userRepository = Orm.instance.em.getRepository(User);
+
+  public async authorize(event, context, callback: Callback) {
 
     const { headers: { Authorization } } = event
 
     if (!Authorization) {
-      callback('Unauthorized')
+      callback('Unauthorized', 401)
       throw new HttpException('Unauthorized', 401, event)
     }
 
@@ -27,16 +30,17 @@ export default class AuthorizerController {
   }
 
   private async findUser(credentials: Credentials, event, callback) {
-    //const user = await this.userRepository.findOne({ where: credentials })
-    const user = {id: '', cnpj: '', establishment: ''}
+    const user = await this.userRepository.findOne(credentials)
+
     if (!user) {
+      callback('Unauthorized')
       throw new HttpException('User not found', 404, event)
     }
 
-    const { id, cnpj, establishment } = user
+    const { id, cnpj, establishment_id } = user
 
     return {
-      id, cnpj, establishment
+      id, cnpj, establishment_id
     }
   }
 
