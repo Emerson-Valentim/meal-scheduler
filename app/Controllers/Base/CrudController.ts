@@ -1,9 +1,8 @@
 import { EntityRepository } from '@mikro-orm/knex'
-import Environment from 'App/Models/Environment'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import { APIGatewayEvent } from 'aws-lambda'
-import { AnyEntity } from 'mikro-orm'
+import { AnyEntity, wrap } from 'mikro-orm'
 import Orm from 'Start/orm'
 
 export interface BaseCrudValidator {
@@ -91,7 +90,9 @@ export default abstract class CrudController<
         'updateByIdValidation'
       )
 
-      const model = await this.repository.merge({ id, ...data })
+      const model = await this.repository.findOneOrFail(id)
+
+      wrap(model).assign(data)
 
       await this.repository.persistAndFlush(model)
 
