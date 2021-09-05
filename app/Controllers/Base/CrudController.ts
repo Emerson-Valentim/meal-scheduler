@@ -48,7 +48,9 @@ export default abstract class CrudController<
     try {
       const data = await BaseValidator.validate(pathParameters, this.validator, 'deleteByIdValidation')
 
-      await this.repository.removeAndFlush(data)
+      const model = await this.repository.findOneOrFail(data)
+
+      await this.repository.removeAndFlush(model)
 
       return Utils.toHttpResponse(202, { message: `ID ${data.id} deleted.` })
     } catch (error) {
