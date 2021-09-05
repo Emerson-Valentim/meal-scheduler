@@ -1,7 +1,6 @@
-import Reservation from 'App/Models/Reservation';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import Reservation from 'App/Models/Reservation'
 
-@EntityRepository(Reservation)
-export default class ReservationRepository extends Repository<Reservation> {
+export default class ReservationRepository extends EntityRepository<Reservation> {
 
 }

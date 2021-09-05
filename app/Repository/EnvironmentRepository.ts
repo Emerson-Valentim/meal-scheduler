@@ -1,7 +1,6 @@
-import Environment from 'App/Models/Environment';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import Environment from 'App/Models/Environment'
 
-@EntityRepository(Environment)
-export default class EnvironmentRepository extends Repository<Environment> {
+export default class EnvironmentRepository extends EntityRepository<Environment> {
 
 }

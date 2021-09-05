@@ -17,11 +17,7 @@ export default class MenuItemValidator implements BaseCrudValidator {
       establishment_id: Joi
         .number()
         .required(),
-      establishment: Joi
-        .number()
-        .precision(2)
-        .required(),
-    }).rename('establishment_id', 'establishment', { alias: true })
+    })
   }
 
   public filterValidation() {

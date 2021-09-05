@@ -1,7 +1,6 @@
-import User from 'App/Models/User';
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import User from 'App/Models/User'
 
-@EntityRepository(User)
-export default class UserRepository extends Repository<User> {
+export default class UserRepository extends EntityRepository<User> {
 
 }

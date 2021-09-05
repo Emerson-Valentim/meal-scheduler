@@ -1,7 +1,6 @@
-import MenuItem from 'App/Models/MenuItem';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import MenuItem from 'App/Models/MenuItem'
 
-@EntityRepository(MenuItem)
-export default class MenuItemRepository extends Repository<MenuItem> {
+export default class MenuItemRepository extends EntityRepository<MenuItem> {
 
 }

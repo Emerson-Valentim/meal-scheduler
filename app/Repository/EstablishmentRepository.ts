@@ -1,7 +1,6 @@
-import Establishment from 'App/Models/Establishment';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import Establishment from 'App/Models/Establishment'
 
-@EntityRepository(Establishment)
-export default class EstablishmentRepository extends Repository<Establishment> {
+export default class EstablishmentRepository extends EntityRepository<Establishment> {
 
 }

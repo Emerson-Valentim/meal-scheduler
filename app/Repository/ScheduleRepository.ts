@@ -1,7 +1,6 @@
-import Schedule from 'App/Models/Schedule';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import Environment from 'App/Models/Environment'
 
-@EntityRepository(Schedule)
-export default class ScheduleRepository extends Repository<Schedule> {
+export default class ScheduleRepository extends EntityRepository<Environment> {
 
 }

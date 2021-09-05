@@ -1,7 +1,6 @@
-import Table from 'App/Models/Table';
-import {EntityRepository, Repository} from 'typeorm';
+import { EntityRepository } from '@mikro-orm/knex'
+import Table from 'App/Models/Table'
 
-@EntityRepository(Table)
-export default class TableRepository extends Repository<Table> {
+export default class TableRepository extends EntityRepository<Table> {
 
 }

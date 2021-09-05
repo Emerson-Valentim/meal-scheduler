@@ -11,21 +11,10 @@ export default class TableValidator implements BaseCrudValidator {
       seats: Joi
         .number()
         .required(),
-      establishment_id: Joi
-        .number()
-        .required(),
-      establishment: Joi
-        .number()
-        .required(),
       environment_id: Joi
         .number()
         .required(),
-      environment: Joi
-        .number()
-        .required(),
     })
-      .rename('establishment_id', 'establishment', { alias: true })
-      .rename('environment_id', 'environment', { alias: true })
   }
 
   public filterValidation() {
@@ -56,6 +45,9 @@ export default class TableValidator implements BaseCrudValidator {
         seats: Joi
           .number()
           .optional(),
+        environment_id: Joi
+          .number()
+          .required(),
       }).required()
     })
   }

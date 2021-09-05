@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Property, PrimaryKey, OneToOne } from '@mikro-orm/core'
+import Establishment from './Establishment'
 
 export enum WeekDays {
   MONDAY = 0,
@@ -22,9 +23,16 @@ export type Week = {
 @Entity()
 export default class Schedule {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column('jsonb')
+  @Property({ columnType: 'jsonb' })
   public definition: Week
+
+  @OneToOne(() => Establishment, establishment => establishment.schedule_id, {
+    owner: true,
+    orphanRemoval: true,
+    fieldName: 'establishment_id'
+  })
+  public establishment_id: Establishment
 }

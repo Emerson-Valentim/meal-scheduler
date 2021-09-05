@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Collection, Entity, OneToMany, Property, PrimaryKey, OneToOne, Enum } from '@mikro-orm/core'
 import Environment from './Environment'
 import MenuItem from './MenuItem'
 import Reservation from './Reservation'
 import Schedule from './Schedule'
+import User from './User'
 
 export enum Segmentation {
   PUB = 'pub',
@@ -15,29 +16,31 @@ export enum Segmentation {
 @Entity()
 export default class Establishment {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column()
+  @Property()
   public name: string
 
-  @Column()
+  @Property()
   public description: string
 
-  @Column()
+  @Enum(() => Segmentation)
   public category: Segmentation
 
-  @OneToOne(() => Schedule)
-  @JoinColumn()
-  public schedule: Schedule
+  @OneToOne({ mappedBy: 'establishment_id' })
+  public schedule_id: Schedule
 
-  @OneToMany(() => MenuItem, menu => menu.establishment)
-  public menu: MenuItem[]
+  @OneToOne({ mappedBy: 'establishment_id' })
+  public user: User
 
-  @OneToMany(() => Environment, environment => environment.establishment)
-  public environment: Environment[]
+  @OneToMany('MenuItem', 'establishment_id')
+  public menu_items = new Collection<MenuItem>(this)
 
-  @OneToMany(() => Reservation, reservation => reservation.establishment)
-  public reservation: Reservation[]
+  @OneToMany('Environment', 'establishment_id')
+  public environments = new Collection<Environment>(this)
+
+  @OneToMany('Reservation', 'establishment_id')
+  public reservations = new Collection<Reservation>(this)
 
 }
