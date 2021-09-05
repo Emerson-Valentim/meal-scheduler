@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToOne, OneToMany, Property, PrimaryKey } from '@mikro-orm/core';
+import { Collection, Entity, ManyToOne, OneToMany, Property, PrimaryKey, Enum } from '@mikro-orm/core';
 import Establishment from './Establishment';
 import Table from './Table';
 
@@ -19,7 +19,7 @@ export default class Environment {
   @Property()
   public pets_allowed: boolean
 
-  @Property()
+  @Enum(() => EnvironmentLocation)
   public location: EnvironmentLocation
 
   @Property()

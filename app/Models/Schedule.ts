@@ -26,7 +26,7 @@ export default class Schedule {
   @PrimaryKey()
   public id: number
 
-  @Property()
+  @Property({ columnType: 'jsonb' })
   public definition: Week
 
   @OneToOne(() => Establishment, establishment => establishment.schedule_id, {

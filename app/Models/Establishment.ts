@@ -1,4 +1,4 @@
-import { Collection, Entity, OneToMany, Property, PrimaryKey, OneToOne } from '@mikro-orm/core'
+import { Collection, Entity, OneToMany, Property, PrimaryKey, OneToOne, Enum } from '@mikro-orm/core'
 import Environment from './Environment'
 import MenuItem from './MenuItem'
 import Reservation from './Reservation'
@@ -25,7 +25,7 @@ export default class Establishment {
   @Property()
   public description: string
 
-  @Property()
+  @Enum(() => Segmentation)
   public category: Segmentation
 
   @OneToOne({ mappedBy: 'establishment_id' })

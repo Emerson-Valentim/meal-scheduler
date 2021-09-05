@@ -1,7 +1,7 @@
 import Table from './Table'
 import Establishment from './Establishment';
 import { DateTime } from 'luxon';
-import { Entity, ManyToOne, Property, PrimaryKey } from '@mikro-orm/core';
+import { Entity, ManyToOne, Property, PrimaryKey, Enum } from '@mikro-orm/core';
 
 export enum ReservationStatus {
   SCHEDULED = 'scheduled',
@@ -26,7 +26,7 @@ export default class Reservation {
   @Property()
   public phone: string
 
-  @Property()
+  @Enum(() => ReservationStatus)
   public status: ReservationStatus
 
   @ManyToOne(() => Table, { mapToPk: true, fieldName: 'table_id' })
@@ -35,7 +35,7 @@ export default class Reservation {
   @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id' })
   public establishment_id: Establishment
 
-  @Property()
+  @Property({ columnType: 'jsonb' })
   public interval: Interval
 
 }
