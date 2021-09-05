@@ -4,13 +4,13 @@ import CrudController from './Base/CrudController'
 
 export default class ScheduleController extends CrudController<
   ScheduleValidator,
-  Schedule
+  typeof Schedule
 >{
 
   constructor() {
     super(
       new ScheduleValidator(),
-      new Schedule(),
+      Schedule,
     )
   }
 

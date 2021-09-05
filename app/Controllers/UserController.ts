@@ -4,13 +4,13 @@ import CrudController from './Base/CrudController'
 
 export default class UserController extends CrudController<
   UserValidator,
-  User
+  typeof User
 >{
 
   constructor() {
     super(
       new UserValidator(),
-      new User(),
+      User,
     )
   }
 

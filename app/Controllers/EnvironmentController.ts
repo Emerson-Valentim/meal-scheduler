@@ -5,13 +5,13 @@ import CrudController from './Base/CrudController'
 
 export default class EnvironmentController extends CrudController<
   EnvironmentValidator,
-  Environment
+  typeof Environment
 >{
 
   constructor() {
     super(
       new EnvironmentValidator(),
-      new Environment(),
+      Environment,
     )
   }
 

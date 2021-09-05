@@ -4,13 +4,13 @@ import CrudController from './Base/CrudController'
 
 export default class MenuItemController extends CrudController<
   MenuItemValidator,
-  MenuItem
+  typeof MenuItem
 >{
 
   constructor() {
     super(
       new MenuItemValidator(),
-      new MenuItem(),
+      MenuItem,
     )
   }
 

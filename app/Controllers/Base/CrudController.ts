@@ -1,6 +1,10 @@
+import { EntityRepository } from '@mikro-orm/knex'
+import Environment from 'App/Models/Environment'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import { APIGatewayEvent } from 'aws-lambda'
+import { AnyEntity } from 'mikro-orm'
+import Orm from 'Start/orm'
 
 export interface BaseCrudValidator {
   createValidation()
@@ -16,19 +20,26 @@ export type BaseHttpResponse = {
 
 export default abstract class CrudController<
   Validator extends BaseCrudValidator,
-  T> {
+  Model extends AnyEntity<Model>> {
+
+  protected repository: EntityRepository<Model>
 
   constructor(
     public readonly validator: Validator,
-    public readonly model: T,
+    public readonly model: Model
   ) {
+    this.repository = Orm.instance.em.getRepository(this.model as any) as any
   }
 
   public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
       const data = await BaseValidator.validate(body, this.validator, 'createValidation')
 
-      return Utils.toHttpResponse(201, data)
+      const model = await this.repository.create(data)
+
+      await this.repository.persistAndFlush(model)
+
+      return Utils.toHttpResponse(201, model)
     } catch (error) {
       throw error
     }
@@ -37,6 +48,8 @@ export default abstract class CrudController<
   public async delete({ pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
       const data = await BaseValidator.validate(pathParameters, this.validator, 'deleteByIdValidation')
+
+      await this.repository.removeAndFlush(data)
 
       return Utils.toHttpResponse(202, { message: `ID ${data.id} deleted.` })
     } catch (error) {
@@ -52,6 +65,18 @@ export default abstract class CrudController<
         'filterValidation')
       )
 
+      if (pathParameters?.id) {
+        const model = await this.repository.findOneOrFail(pathParameters)
+
+        return Utils.toHttpResponse(200, model)
+      }
+
+      const allModels = await this.repository.findAll()
+
+      if (allModels.length) {
+        return Utils.toHttpResponse(200, allModels)
+      }
+
       return Utils.toHttpResponse(404, [])
     } catch (error) {
       throw error
@@ -66,7 +91,11 @@ export default abstract class CrudController<
         'updateByIdValidation'
       )
 
-      return Utils.toHttpResponse(200, data)
+      const model = await this.repository.merge({ id, ...data })
+
+      await this.repository.persistAndFlush(model)
+
+      return Utils.toHttpResponse(200, model)
     } catch (error) {
       throw error
     }

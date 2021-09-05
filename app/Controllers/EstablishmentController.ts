@@ -4,13 +4,13 @@ import CrudController from './Base/CrudController'
 
 export default class EstablishmentController extends CrudController<
   EstablishmentValidator,
-  Establishment
+  typeof Establishment
 >{
 
   constructor() {
     super(
       new EstablishmentValidator(),
-      new Establishment(),
+      Establishment,
     )
   }
 
