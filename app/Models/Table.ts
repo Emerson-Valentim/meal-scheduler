@@ -1,23 +1,23 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Collection, Entity, ManyToOne, OneToMany, Property, PrimaryKey } from '@mikro-orm/core';
 import Environment from './Environment';
 import Reservation from './Reservation';
 
 @Entity()
 export default class Table {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column()
+  @Property()
   public identification: number
 
-  @Column()
+  @Property()
   public seats: number
 
-  @ManyToOne(() => Environment, environment => environment.table)
-  public environment: Environment
+  @ManyToOne(() => Environment, { mapToPk: true })
+  public environment_id: Environment
 
-  @OneToMany(() => Reservation, reservation => reservation.table)
-  public reservation: Reservation[]
+  @OneToMany('Reservation', 'table_id')
+  public reservation = new Collection<Reservation>(this)
 
 }

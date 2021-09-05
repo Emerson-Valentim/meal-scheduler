@@ -1,23 +1,21 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Entity, OneToOne, Property, PrimaryKey } from '@mikro-orm/core';
 import Establishment from './Establishment';
 
 @Entity()
-@Unique(['cnpj', 'phone'])
 export default class User {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column()
+  @Property()
   public cnpj: string
 
-  @Column()
+  @Property()
   public phone: string
 
-  @Column()
+  @Property()
   public password: string
 
-  @OneToOne(() => Establishment)
-  @JoinColumn()
-  public establishment: Establishment
+  @OneToOne(() => Establishment, establishment => establishment.user, { owner: true, orphanRemoval: true })
+  public establishment_id: Establishment
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Collection, Entity, ManyToOne, OneToMany, Property, PrimaryKey } from '@mikro-orm/core';
 import Establishment from './Establishment';
 import Table from './Table';
 
@@ -10,24 +10,25 @@ export enum EnvironmentLocation {
 @Entity()
 export default class Environment {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column()
+  @Property()
   public smoking_allowed: boolean
 
-  @Column()
+  @Property()
   public pets_allowed: boolean
 
-  @Column()
+  @Property()
   public location: EnvironmentLocation
 
-  @Column()
+  @Property()
   public description: string
 
-  @ManyToOne(() => Establishment, establishment => establishment.environment)
-  public establishment: Establishment
+  @ManyToOne(() => Establishment)
+  public establishment_id: Establishment
 
-  @OneToMany(() => Table, table => table.environment)
-  public table: Table[]
+  @OneToMany('Table', 'environment_id')
+  public tables = new Collection<Table>(this)
+
 }

@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import Table from 'App/Models/Table'
+import Table from './Table'
 import Establishment from './Establishment';
 import { DateTime } from 'luxon';
+import { Entity, ManyToOne, Property, PrimaryKey } from '@mikro-orm/core';
 
 export enum ReservationStatus {
   SCHEDULED = 'scheduled',
@@ -17,25 +17,25 @@ export type Interval = {
 @Entity()
 export default class Reservation {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column()
+  @Property()
   public cpf: string
 
-  @Column()
+  @Property()
   public phone: string
 
-  @Column()
+  @Property()
   public status: ReservationStatus
 
-  @ManyToOne(() => Table, table => table.reservation)
-  public table: Table
+  @ManyToOne(() => Table, { mapToPk: true })
+  public table_id: Table
 
-  @ManyToOne(() => Establishment, establishment => establishment.reservation)
-  public establishment: Establishment
+  @ManyToOne(() => Establishment, { mapToPk: true })
+  public establishment_id: Establishment
 
-  @Column('jsonb')
+  @Property()
   public interval: Interval
 
 }

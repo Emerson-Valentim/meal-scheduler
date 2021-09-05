@@ -1,21 +1,21 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, ManyToOne, Property, PrimaryKey } from '@mikro-orm/core';
 import Establishment from './Establishment';
 
 @Entity()
 export default class MenuItem {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryKey()
   public id: number
 
-  @Column()
+  @Property()
   public name: string
 
-  @Column()
+  @Property()
   public ingredients: string
 
-  @Column()
+  @Property()
   public value: number
 
-  @ManyToOne(() => Establishment, establishment => establishment.menu)
-  public establishment: Establishment
+  @ManyToOne(() => Establishment, { mapToPk: true })
+  public establishment_id: Establishment
 }
