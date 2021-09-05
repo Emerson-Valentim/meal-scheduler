@@ -102,7 +102,11 @@ const routes: RouteDefinition = {
 
 Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
   Object.values(methods).forEach((controllerMethod) => {
-    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (event, context, callback): Promise<BaseHttpResponse> => {
+    module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (
+      event,
+      context,
+      callback
+    ): Promise<BaseHttpResponse> => {
 
       await Orm.init()
 
@@ -112,14 +116,14 @@ Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
           message: 'Internal server error'
         }
       }
-      
+
       try {
-        await beforeMiddleware(event, context)        
+        await beforeMiddleware(event, context)
         response = await new controller()[controllerMethod as any](event, context, callback)
       } catch( error) {
         ExceptionMiddleware.handle(response, error);
       }
-      
+
       await afterMiddleware(event, context, response)
 
       return response

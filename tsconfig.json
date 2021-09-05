@@ -10,27 +10,30 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDir": "./",
+		"outDir": ".build",
 		"preserveConstEnums": true,
 		"strictNullChecks": true,
 		"sourceMap": true,
 		"allowJs": true,
 		"target": "es2018",
 		"module": "commonjs",
-		"outDir": ".build",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
+    "esModuleInterop": true,
 		"paths": {
 			"App/*": [
 				"./app/*"
 			],
 			"Config/*": [
 				"./config/*"
-			]
+			],
+      "Start/*": [
+        "./start/*"
+      ]
 		},
 		"lib": [
 			"es2018"
-		],
-		"esModuleInterop": true
+		]
 	}
 }
