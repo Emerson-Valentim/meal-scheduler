@@ -11,6 +11,8 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
+    networks:
+      - docker-network
 
   postgres:
     container_name: postgres_ihc
@@ -24,9 +26,16 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - docker-network
 
 volumes:
   pgihc:
     external: true
+
+networks:
+  docker-network:
+    driver: bridge
+
 
 
