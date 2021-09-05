@@ -1,7 +1,4 @@
-import UserRepository from 'App/Repository/UserRepository'
 import User from 'App/Models/User';
-import { getCustomRepository, Repository } from 'typeorm';
-import EstablishmentRepository from 'App/Repository/EstablishmentRepository';
 import Establishment from 'App/Models/Establishment';
 import HttpException from 'App/Exceptions/HttpException';
 
@@ -11,9 +8,6 @@ type Credentials = {
 }
 
 export default class AuthorizerController {
-
-  protected readonly userRepository: Repository<User> = getCustomRepository(UserRepository)
-  protected readonly establishmentRepository: Repository<Establishment> = getCustomRepository(EstablishmentRepository)
 
   public async authorize(event, context, callback) {
 
@@ -33,8 +27,8 @@ export default class AuthorizerController {
   }
 
   private async findUser(credentials: Credentials, event, callback) {
-    const user = await this.userRepository.findOne({ where: credentials })
-
+    //const user = await this.userRepository.findOne({ where: credentials })
+    const user = {id: '', cnpj: '', establishment: ''}
     if (!user) {
       throw new HttpException('User not found', 404, event)
     }

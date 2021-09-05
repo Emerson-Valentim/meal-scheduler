@@ -1,7 +1,6 @@
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import { APIGatewayEvent } from 'aws-lambda'
-import { DeepPartial, getCustomRepository, Repository } from 'typeorm'
 
 export interface BaseCrudValidator {
   createValidation()
@@ -17,31 +16,19 @@ export type BaseHttpResponse = {
 
 export default abstract class CrudController<
   Validator extends BaseCrudValidator,
-  Model extends DeepPartial<any>,
-  ModelRepository extends Repository<Model>> {
-
-  protected readonly repository: Repository<Model>
+  T> {
 
   constructor(
     public readonly validator: Validator,
-    public readonly model: Model,
-    repository: ModelRepository
+    public readonly model: T,
   ) {
-    this.repository = getCustomRepository(repository.constructor)
   }
 
   public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
       const data = await BaseValidator.validate(body, this.validator, 'createValidation')
-      const model = this.repository.create()
 
-      Utils.mapKeys(model, data)
-
-      await this.repository.save(model)
-
-      const createdModel = await this.repository.findOne(model.id)
-
-      return Utils.toHttpResponse(201, createdModel)
+      return Utils.toHttpResponse(201, data)
     } catch (error) {
       throw error
     }
@@ -50,10 +37,6 @@ export default abstract class CrudController<
   public async delete({ pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
     try {
       const data = await BaseValidator.validate(pathParameters, this.validator, 'deleteByIdValidation')
-
-      const model = await this.repository.findOneOrFail(data.id)
-
-      await this.repository.delete(model)
 
       return Utils.toHttpResponse(202, { message: `ID ${data.id} deleted.` })
     } catch (error) {
@@ -69,18 +52,6 @@ export default abstract class CrudController<
         'filterValidation')
       )
 
-      if (pathParameters?.id) {
-        const model = await this.repository.findOneOrFail(pathParameters.id)
-
-        return Utils.toHttpResponse(200, model)
-      }
-
-      const allModels = await this.repository.find()
-
-      if(allModels.length) {
-        return Utils.toHttpResponse(200, allModels)
-      }
-
       return Utils.toHttpResponse(404, [])
     } catch (error) {
       throw error
@@ -95,13 +66,7 @@ export default abstract class CrudController<
         'updateByIdValidation'
       )
 
-      const model = await this.repository.findOneOrFail(id)
-
-      await this.repository.update(model, data)
-
-      const updatedModel = await this.repository.findOneOrFail(id)
-
-      return Utils.toHttpResponse(200, updatedModel)
+      return Utils.toHttpResponse(200, data)
     } catch (error) {
       throw error
     }
