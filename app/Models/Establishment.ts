@@ -28,19 +28,19 @@ export default class Establishment {
   @Enum(() => Segmentation)
   public category: Segmentation
 
-  @OneToOne({ mappedBy: 'establishment_id' })
-  public schedule_id: Schedule
+  @OneToOne({ mappedBy: 'establishment' })
+  public schedule: Schedule
 
-  @OneToOne({ mappedBy: 'establishment_id' })
+  @OneToOne({ mappedBy: 'establishment', entity: () => User })
   public user: User
 
-  @OneToMany('MenuItem', 'establishment_id')
+  @OneToMany('MenuItem', 'establishment')
   public menu_items = new Collection<MenuItem>(this)
 
-  @OneToMany('Environment', 'establishment_id')
+  @OneToMany('Environment', 'establishment')
   public environments = new Collection<Environment>(this)
 
-  @OneToMany('Reservation', 'establishment_id')
+  @OneToMany('Reservation', 'establishment')
   public reservations = new Collection<Reservation>(this)
 
 }

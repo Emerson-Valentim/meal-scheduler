@@ -15,9 +15,9 @@ export default class Table {
   public seats: number
 
   @ManyToOne(() => Environment, { mapToPk: true, fieldName: 'environment_id' })
-  public environment_id: Environment
+  public environment: Environment
 
-  @OneToMany('Reservation', 'table_id')
+  @OneToMany('Reservation', 'table')
   public reservation = new Collection<Reservation>(this)
 
 }

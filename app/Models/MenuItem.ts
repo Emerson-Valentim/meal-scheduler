@@ -17,5 +17,5 @@ export default class MenuItem {
   public value: number
 
   @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id' })
-  public establishment_id: Establishment
+  public establishment: Establishment
 }
