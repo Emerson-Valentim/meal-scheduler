@@ -29,10 +29,10 @@ export default class Reservation {
   @Enum(() => ReservationStatus)
   public status: ReservationStatus
 
-  @ManyToOne(() => Table, { mapToPk: true, fieldName: 'table_id' })
+  @ManyToOne(() => Table, { fieldName: 'table_id' })
   public table: Table
 
-  @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id' })
+  @ManyToOne(() => Establishment, { fieldName: 'establishment_id' })
   public establishment: Establishment
 
   @Property({ columnType: 'jsonb' })

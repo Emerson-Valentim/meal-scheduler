@@ -14,7 +14,7 @@ export default class Table {
   @Property()
   public seats: number
 
-  @ManyToOne(() => Environment, { mapToPk: true, fieldName: 'environment_id' })
+  @ManyToOne(() => Environment, { fieldName: 'environment_id' })
   public environment: Environment
 
   @OneToMany('Reservation', 'table')
