@@ -4,11 +4,13 @@ import { configure } from 'japa'
 import dotenv from 'dotenv'
 
 import knex from 'knex'
+import Orm from 'Start/orm'
 
 async function runMigrations() {
   await execa('yarn', ['migration:run'], {
     stdio: 'inherit',
   })
+  await Orm.init()
 }
 
 async function rollbackMigrations() {
