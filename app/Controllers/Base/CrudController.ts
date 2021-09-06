@@ -27,7 +27,7 @@ export default abstract class CrudController<
     public readonly validator: Validator,
     public readonly model: Model
   ) {
-    this.repository = Orm.getInstance().em.getRepository(this.model as any) as any
+    this.repository = Orm.instance.em.getRepository(this.model as any) as any
   }
 
   public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {
