@@ -4,13 +4,13 @@ import CrudController from './Base/CrudController'
 
 export default class TableController extends CrudController<
   TableValidator,
-  typeof Table
+  Table
 >{
 
   constructor() {
     super(
       new TableValidator(),
-      Table,
+      new Table(),
     )
   }
 
