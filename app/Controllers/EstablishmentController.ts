@@ -1,21 +1,15 @@
-import { wrap } from 'mikro-orm'
 import { APIGatewayEvent } from 'aws-lambda'
-import User from 'App/Models/User'
 import Establishment from 'App/Models/Establishment'
 import BaseValidator from 'App/Validator/BaseValidator'
 import EstablishmentValidator from 'App/Validator/EstablishmentValidator'
 import Utils from 'App/Services/Utils'
 import CrudController, { BaseHttpResponse } from './Base/CrudController'
-import Orm from 'Start/orm'
 import { Authorizer } from './AuthorizerController'
-import HttpException from 'App/Exceptions/HttpException'
 
 export default class EstablishmentController extends CrudController<
   EstablishmentValidator,
   Establishment
 >{
-
-  protected userRepository = Orm.em.getRepository(User)
 
   constructor() {
     super(
@@ -41,7 +35,7 @@ export default class EstablishmentController extends CrudController<
 
       const user = await this.userRepository.findOneOrFail(user_id)
 
-      wrap(user).assign({
+      this.modelUpdate(user, {
         establishment: model
       })
 
@@ -68,7 +62,7 @@ export default class EstablishmentController extends CrudController<
 
       const user = await this.userRepository.findOneOrFail(user_id)
 
-      this.isUserEnabled(user, model)
+      this.isUserEnabled(user, model.id)
 
       await this.repository.removeAndFlush(model)
 
@@ -97,9 +91,9 @@ export default class EstablishmentController extends CrudController<
 
       const model = await this.repository.findOneOrFail(id)
 
-      this.isUserEnabled(user, model)
+      this.isUserEnabled(user, model.id)
 
-      wrap(model).assign(data)
+      this.modelUpdate(model, data)
 
       await this.repository.persistAndFlush(model)
 
@@ -109,15 +103,4 @@ export default class EstablishmentController extends CrudController<
     }
   }
 
-  private userHasEstablishment(establishment: number | undefined) {
-    if (!establishment) {
-      throw new HttpException('User has no establishment', 400, {})
-    }
-  }
-
-  private isUserEnabled(user: User, model: Establishment) {
-    if (user.establishment.id !== model.id) {
-      throw new HttpException('User is not the establishment owner', 400, {})
-    }
-  }
 }

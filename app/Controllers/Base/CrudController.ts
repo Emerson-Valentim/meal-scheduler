@@ -1,8 +1,10 @@
 import { EntityRepository } from '@mikro-orm/knex'
+import HttpException from 'App/Exceptions/HttpException'
+import User from 'App/Models/User'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import { APIGatewayEvent } from 'aws-lambda'
-import { AnyEntity, EntityRepositoryType, wrap } from 'mikro-orm'
+import { AnyEntity, wrap } from 'mikro-orm'
 import Orm from 'Start/orm'
 
 export interface BaseCrudValidator {
@@ -22,6 +24,7 @@ export default abstract class CrudController<
   Model extends AnyEntity<Model>> {
 
   protected repository: EntityRepository<Model>
+  protected userRepository = Orm.em.getRepository(User)
 
   constructor(
     public readonly validator: Validator,
@@ -94,7 +97,7 @@ export default abstract class CrudController<
 
       const model = await this.repository.findOneOrFail(id)
 
-      wrap(model).assign(data)
+      this.modelUpdate(model, data)
 
       await this.repository.persistAndFlush(model)
 
@@ -102,5 +105,21 @@ export default abstract class CrudController<
     } catch (error) {
       throw error
     }
+  }
+
+  protected userHasEstablishment(model_id: number | undefined) {
+    if (!model_id) {
+      throw new HttpException('User has no establishment', 400, {})
+    }
+  }
+
+  protected isUserEnabled(user: User, model_id: number) {
+    if (user.establishment.id !== model_id) {
+      throw new HttpException('User is not the establishment owner', 400, {})
+    }
+  }
+
+  protected modelUpdate(model, updateData) {
+    wrap(model).assign(updateData)
   }
 }

@@ -31,7 +31,6 @@ export default class Schedule {
 
   @OneToOne(() => Establishment, establishment => establishment.schedule, {
     owner: true,
-    orphanRemoval: true,
     fieldName: 'establishment_id'
   })
   public establishment: Establishment

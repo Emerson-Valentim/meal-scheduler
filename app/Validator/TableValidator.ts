@@ -45,9 +45,6 @@ export default class TableValidator implements BaseCrudValidator {
         seats: Joi
           .number()
           .optional(),
-        environment: Joi
-          .number()
-          .required(),
       }).required()
     })
   }

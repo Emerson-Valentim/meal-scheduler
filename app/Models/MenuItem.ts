@@ -13,6 +13,9 @@ export default class MenuItem {
   @Property()
   public ingredients: string
 
+  /**
+   * @todo Add this field as monetary on database
+   */
   @Property()
   public value: number
 
