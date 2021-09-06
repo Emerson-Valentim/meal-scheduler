@@ -78,6 +78,37 @@ export default class EstablishmentController extends CrudController<
     }
   }
 
+  public async update({
+    body,
+    pathParameters,
+    requestContext: { authorizer }
+  }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+
+      const { pathParameters: { id }, body: data } = await BaseValidator.validate(
+        { body, pathParameters },
+        this.validator,
+        'updateByIdValidation'
+      )
+
+      const { principalId: { id: user_id } } = authorizer as Authorizer
+
+      const user = await this.userRepository.findOneOrFail(user_id)
+
+      const model = await this.repository.findOneOrFail(id)
+
+      this.isUserEnabled(user, model)
+
+      wrap(model).assign(data)
+
+      await this.repository.persistAndFlush(model)
+
+      return Utils.toHttpResponse(200, model)
+    } catch (error) {
+      throw error
+    }
+  }
+
   private userHasEstablishment(establishment: number | undefined) {
     if (!establishment) {
       throw new HttpException('User has no establishment', 400, {})
