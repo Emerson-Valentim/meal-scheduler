@@ -6,13 +6,13 @@ import Orm from '../../start/orm'
 test.group('MenuItem Entity', () => {
 
   const ModelType = MenuItem
-  const modelRepository = Orm.instance.em.getRepository(ModelType)
+  const modelRepository = Orm.em.getRepository(ModelType)
 
   test('Create new entity and validate all fields', (assert) => {
 
     const modelDefinition: MenuItem = {
       id: 1,
-      establishment_id: new Establishment(),
+      establishment: new Establishment(),
       ingredients: 'ingredients',
       name: 'name',
       value: 10.00

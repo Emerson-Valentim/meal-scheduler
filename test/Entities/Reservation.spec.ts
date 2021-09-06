@@ -8,7 +8,7 @@ import Orm from '../../start/orm'
 test.group('Reservation Entity', () => {
 
   const ModelType = Reservation
-  const modelRepository = Orm.instance.em.getRepository(ModelType)
+  const modelRepository = Orm.em.getRepository(ModelType)
 
   test('Create new entity and validate all fields', (assert) => {
 
@@ -21,8 +21,8 @@ test.group('Reservation Entity', () => {
       },
       phone: 'phone',
       status: ReservationStatus.CANCELED,
-      table_id: new Table(),
-      establishment_id: new Establishment()
+      table: new Table(),
+      establishment: new Establishment()
     }
     const model = modelRepository.create(modelDefinition)
 

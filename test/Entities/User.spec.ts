@@ -6,14 +6,14 @@ import Orm from '../../start/orm'
 test.group('User Entity', () => {
 
   const ModelType = User
-  const modelRepository = Orm.instance.em.getRepository(ModelType)
+  const modelRepository = Orm.em.getRepository(ModelType)
 
   test('Create new entity and validate all fields', (assert) => {
 
     const modelDefinition: User = {
       id: 1,
       cnpj: 'cnpj',
-      establishment_id: new Establishment(),
+      establishment: new Establishment(),
       password: 'password',
       phone: 'phone'
     }

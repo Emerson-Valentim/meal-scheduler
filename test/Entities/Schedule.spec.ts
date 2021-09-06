@@ -6,7 +6,7 @@ import Orm from '../../start/orm'
 test.group('Schedule Entity', () => {
 
   const ModelType = Schedule
-  const modelRepository = Orm.instance.em.getRepository(ModelType)
+  const modelRepository = Orm.em.getRepository(ModelType)
 
   test('Create new entity and validate all fields', (assert) => {
 
@@ -18,7 +18,7 @@ test.group('Schedule Entity', () => {
           start: '11:20:00',
         }
       },
-      establishment_id: new Establishment()
+      establishment: new Establishment()
     }
     const model = modelRepository.create(modelDefinition)
 

@@ -7,13 +7,13 @@ import Orm from '../../start/orm'
 test.group('Environment Entity', () => {
 
   const ModelType = Environment
-  const modelRepository = Orm.instance.em.getRepository(ModelType)
+  const modelRepository = Orm.em.getRepository(ModelType)
 
   test('Create new entity and validate all fields', (assert) => {
 
     const modelDefinition: Environment = {
       description: 'description',
-      establishment_id: new Establishment(),
+      establishment: new Establishment(),
       id: 1,
       location: EnvironmentLocation.INDOOR,
       pets_allowed: true,
