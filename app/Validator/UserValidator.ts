@@ -22,7 +22,7 @@ export default class UserValidator implements BaseCrudValidator {
         .required()
         .min(8)
         .max(16),
-      establishment_id: Joi
+      establishment: Joi
         .number()
         .optional(),
     })

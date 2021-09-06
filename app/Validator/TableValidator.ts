@@ -11,7 +11,7 @@ export default class TableValidator implements BaseCrudValidator {
       seats: Joi
         .number()
         .required(),
-      environment_id: Joi
+      environment: Joi
         .number()
         .required(),
     })
@@ -45,7 +45,7 @@ export default class TableValidator implements BaseCrudValidator {
         seats: Joi
           .number()
           .optional(),
-        environment_id: Joi
+        environment: Joi
           .number()
           .required(),
       }).required()

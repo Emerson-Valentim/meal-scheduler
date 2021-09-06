@@ -19,7 +19,7 @@ export default class EnvironmentValidator implements BaseCrudValidator {
       description: Joi
         .string()
         .required(),
-      establishment_id: Joi
+      establishment: Joi
         .number()
         .required(),
     })
