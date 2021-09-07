@@ -109,8 +109,6 @@ Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
       callback: Callback
     ): Promise<BaseHttpResponse> => {
 
-      context.callbackWaitsForEmptyEventLoop = false
-
       await Orm.init()
 
       let response: BaseHttpResponse = {
