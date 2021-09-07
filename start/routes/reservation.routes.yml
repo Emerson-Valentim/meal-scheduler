@@ -15,16 +15,6 @@ reservationLoad:
           name: basicAuthorizer
           type: request
 
-reservationDelete:
-  handler: ./start/router.reservationDelete
-  events:
-    - http:
-        path: /reservation/delete/{id}
-        method: delete
-        authorizer: 
-          name: basicAuthorizer
-          type: request
-
 reservationUpdate:
   handler: ./start/router.reservationUpdate
   events:

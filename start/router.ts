@@ -87,8 +87,7 @@ const routes: RouteDefinition = {
     methods: {
       create: 'create',
       update: 'update',
-      load: 'load',
-      delete: 'delete'
+      load: 'load'
     },
     controller: ReservationController
   },
