@@ -6,6 +6,7 @@ import BaseValidator from 'App/Validator/BaseValidator'
 import ReservationValidator from 'App/Validator/ReservationValidator'
 import { APIGatewayEvent } from 'aws-lambda'
 import { Authorizer } from './AuthorizerController'
+
 import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class ReservationController extends CrudController<
@@ -51,7 +52,7 @@ export default class ReservationController extends CrudController<
         'updateByIdValidation'
       )
 
-      const { principalId: { id: user_id } } = authorizer as Authorizer
+      const { principalId: user_id } = authorizer as Authorizer
 
       const user = await this.userRepository.findOneOrFail(user_id)
 

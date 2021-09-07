@@ -5,6 +5,7 @@ import BaseValidator from 'App/Validator/BaseValidator'
 import ScheduleValidator from 'App/Validator/ScheduleValidator'
 import { APIGatewayEvent } from 'aws-lambda'
 import { Authorizer } from './AuthorizerController'
+
 import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class ScheduleController extends CrudController<
@@ -27,13 +28,13 @@ export default class ScheduleController extends CrudController<
     try {
       const data = await BaseValidator.validate(body, this.validator, 'createValidation')
 
-      const { principalId: { id: user_id, establishment } } = authorizer as Authorizer
-
-      this.userHasEstablishment(establishment?.id)
+      const { principalId: user_id } = authorizer as Authorizer
 
       const user = await this.userRepository.findOneOrFail(user_id)
 
-      const model = await this.repository.create({ establishment, ...data })
+      this.userHasEstablishment(user.establishment?.id)
+
+      const model = await this.repository.create({ establishment: user.establishment, ...data })
 
       this.isUserEnabled(user, model.establishment.id)
 
@@ -52,13 +53,13 @@ export default class ScheduleController extends CrudController<
     try {
       const data = await BaseValidator.validate(pathParameters, this.validator, 'deleteByIdValidation')
 
-      const { principalId: { id: user_id, establishment } } = authorizer as Authorizer
-
-      this.userHasEstablishment(establishment?.id)
-
-      const model = await this.repository.findOneOrFail(data)
+      const { principalId: user_id } = authorizer as Authorizer
 
       const user = await this.userRepository.findOneOrFail(user_id)
+
+      this.userHasEstablishment(user.establishment?.id)
+
+      const model = await this.repository.findOneOrFail(data)
 
       this.isUserEnabled(user, model.establishment.id)
 
@@ -82,7 +83,7 @@ export default class ScheduleController extends CrudController<
         'updateByIdValidation'
       )
 
-      const { principalId: { id: user_id } } = authorizer as Authorizer
+      const { principalId: user_id } = authorizer as Authorizer
 
       const user = await this.userRepository.findOneOrFail(user_id)
 

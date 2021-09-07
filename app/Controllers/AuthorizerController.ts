@@ -10,11 +10,7 @@ type Credentials = {
 }
 
 export type Authorizer = {
-  principalId: {
-    id: number
-    cnpj: string
-    establishment: Establishment | undefined
-  }
+  principalId: number
 }
 
 let policy = {
@@ -73,7 +69,7 @@ export default class AuthorizerController {
     const [restApiId, stage] = apiGatewayArnTmp.split('/')
     const apiArn = `arn:aws:execute-api:${awsRegion}:${awsAccountId}:${restApiId}/${stage}/*/*`
     const allowPolicy = {
-      principalId: user,
+      principalId: user.id,
       policyDocument: {
         Version: '2012-10-17',
         Statement: [
@@ -83,6 +79,10 @@ export default class AuthorizerController {
             Resource: [apiArn]
           }
         ]
+      },
+      context: {
+        id: user.id,
+        cnpj: user.cnpj
       }
     }
     return allowPolicy

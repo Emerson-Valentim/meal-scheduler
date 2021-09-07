@@ -4,8 +4,9 @@ import BaseValidator from 'App/Validator/BaseValidator'
 import EstablishmentValidator from 'App/Validator/EstablishmentValidator'
 import Utils from 'App/Services/Utils'
 import CrudController, { BaseHttpResponse } from './Base/CrudController'
-import { Authorizer } from './AuthorizerController'
+
 import EstablishmentRepository from 'App/Repository/EstablishmentRepository'
+import { Authorizer } from './AuthorizerController'
 
 export default class EstablishmentController extends CrudController<
   EstablishmentValidator,
@@ -27,15 +28,15 @@ export default class EstablishmentController extends CrudController<
     try {
       const data = await BaseValidator.validate(body, this.validator, 'createValidation')
 
-      const { principalId: { id: user_id, establishment } } = authorizer as Authorizer
+      const { principalId: user_id } = authorizer as Authorizer
 
-      if (establishment) return Utils.toHttpResponse(400, { message: 'User already has an establishment' })
+      const user = await this.userRepository.findOneOrFail(user_id)
+
+      if (user.establishment) return Utils.toHttpResponse(400, { message: 'User already has an establishment' })
 
       const model = await this.repository.create(data)
 
       await this.repository.persistAndFlush(model)
-
-      const user = await this.userRepository.findOneOrFail(user_id)
 
       this.modelUpdate(user, {
         establishment: model
@@ -56,13 +57,13 @@ export default class EstablishmentController extends CrudController<
     try {
       const data = await BaseValidator.validate(pathParameters, this.validator, 'deleteByIdValidation')
 
-      const { principalId: { id: user_id, establishment } } = authorizer as Authorizer
-
-      this.userHasEstablishment(establishment?.id)
-
-      const model = await this.repository.findOneOrFail(data)
+      const { principalId: user_id } = authorizer as Authorizer
 
       const user = await this.userRepository.findOneOrFail(user_id)
+
+      this.userHasEstablishment(user.establishment?.id)
+
+      const model = await this.repository.findOneOrFail(data)
 
       this.isUserEnabled(user, model.id)
 
@@ -87,7 +88,7 @@ export default class EstablishmentController extends CrudController<
         'updateByIdValidation'
       )
 
-      const { principalId: { id: user_id } } = authorizer as Authorizer
+      const { principalId: user_id } = authorizer as Authorizer
 
       const user = await this.userRepository.findOneOrFail(user_id)
 
