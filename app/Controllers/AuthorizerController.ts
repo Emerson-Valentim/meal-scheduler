@@ -1,7 +1,7 @@
 import User from 'App/Models/User';
 import HttpException from 'App/Exceptions/HttpException';
 import Orm from 'Start/orm';
-import { Callback } from 'aws-lambda';
+import { Callback, Context } from 'aws-lambda';
 import Establishment from 'App/Models/Establishment';
 
 type Credentials = {
@@ -21,7 +21,8 @@ export default class AuthorizerController {
 
   protected userRepository = Orm.em.getRepository(User);
 
-  public async authorize(event, context, callback: Callback) {
+  public async authorize(event, context: Context, callback: Callback) {
+    context.callbackWaitsForEmptyEventLoop = false
 
     const { headers: { Authorization } } = event
 
