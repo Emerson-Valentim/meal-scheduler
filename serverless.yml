@@ -35,8 +35,8 @@ functions:
   - ${file(./start/routes/user.routes.yml)}
 
 custom:
-  domain:
-    name: serverless.evshosting.net
+  customDomain:
+    domainName: serverless.evshosting.net
     basePath: '${env:ENV}'
   serverless-offline:
     host: 0.0.0.0
@@ -46,4 +46,5 @@ plugins:
   - serverless-plugin-typescript
   - serverless-tscpaths
   - serverless-offline
-  - serverless-plugin-custom-domain
+  - serverless-domain-manager
+
