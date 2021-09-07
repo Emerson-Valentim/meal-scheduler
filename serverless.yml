@@ -36,8 +36,7 @@ functions:
 
 custom:
   customDomain:
-    domainName: serverless.evshosting.net
-    basePath: '${env:ENV}'
+    domainName: ${env:ENV}-serverless.evshosting.net
   serverless-offline:
     host: 0.0.0.0
     port: 3000
