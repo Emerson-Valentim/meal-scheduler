@@ -92,14 +92,14 @@ const routes: RouteDefinition = {
       safeLoad: 'safeLoad'
     },
     controller: ReservationController
-  },
-  authorizer: {
-    methods: {
-      authorize: 'authorize'
-    },
-    controller: AuthorizerController
   }
 };
+
+module.exports.authorizerAuthorize = async(event) => {
+  await Orm.init()
+  const policy = await new AuthorizerController().authorize(event)
+  return policy
+}
 
 Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
   Object.values(methods).forEach((controllerMethod) => {
