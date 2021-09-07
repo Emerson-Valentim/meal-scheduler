@@ -9,7 +9,8 @@ provider:
   runtime: nodejs14.x
   lambdaHashingVersion: '20201221'
   region: sa-east-1
-  memorySize: 256
+  memorySize: 512
+  timeout: 30
   stage: ${env:ENV}
   deploymentBucket:
     name: em-serverless
