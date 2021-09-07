@@ -14,7 +14,7 @@ export default class MenuItemValidator implements BaseCrudValidator {
       value: Joi
         .number()
         .required(),
-      establishment_id: Joi
+      establishment: Joi
         .number()
         .required(),
     })

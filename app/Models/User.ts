@@ -23,5 +23,5 @@ export default class User {
     nullable: true,
     fieldName: 'establishment_id'
   })
-  public establishment_id: Establishment
+  public establishment: Establishment
 }

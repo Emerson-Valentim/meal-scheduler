@@ -13,9 +13,12 @@ export default class MenuItem {
   @Property()
   public ingredients: string
 
+  /**
+   * @todo Add this field as monetary on database
+   */
   @Property()
   public value: number
 
-  @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id' })
-  public establishment_id: Establishment
+  @ManyToOne(() => Establishment, { fieldName: 'establishment_id' })
+  public establishment: Establishment
 }

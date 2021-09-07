@@ -23,10 +23,10 @@ export default class ReservationValidator implements BaseCrudValidator {
         .string()
         .valid(...Object.values(ReservationStatus))
         .required(),
-      table_id: Joi
+      table: Joi
         .number()
         .required(),
-      establishment_id: Joi
+      establishment: Joi
         .number()
         .required(),
       interval: Joi

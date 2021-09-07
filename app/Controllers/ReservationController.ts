@@ -4,13 +4,13 @@ import CrudController from './Base/CrudController'
 
 export default class ReservationController extends CrudController<
   ReservationValidator,
-  typeof Reservation
+  Reservation
 >{
 
   constructor() {
     super(
       new ReservationValidator(),
-      Reservation,
+      new Reservation(),
     )
   }
 

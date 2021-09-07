@@ -5,7 +5,7 @@ export default class ExceptionMiddleware {
     if (error.statusCode) {
       response.statusCode = error.statusCode
       response.body['message'] = error.message
-    } else if (error.name === 'EntityNotFoundError') {
+    } else if (error.name === 'NotFoundError') {
       response.statusCode = 404
       response.body['message'] = error.message
     } else {

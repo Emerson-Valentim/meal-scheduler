@@ -29,11 +29,11 @@ export default class Reservation {
   @Enum(() => ReservationStatus)
   public status: ReservationStatus
 
-  @ManyToOne(() => Table, { mapToPk: true, fieldName: 'table_id' })
-  public table_id: Table
+  @ManyToOne(() => Table, { fieldName: 'table_id' })
+  public table: Table
 
-  @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id' })
-  public establishment_id: Establishment
+  @ManyToOne(() => Establishment, { fieldName: 'establishment_id' })
+  public establishment: Establishment
 
   @Property({ columnType: 'jsonb' })
   public interval: Interval

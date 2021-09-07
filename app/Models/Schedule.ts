@@ -29,10 +29,9 @@ export default class Schedule {
   @Property({ columnType: 'jsonb' })
   public definition: Week
 
-  @OneToOne(() => Establishment, establishment => establishment.schedule_id, {
+  @OneToOne(() => Establishment, establishment => establishment.schedule, {
     owner: true,
-    orphanRemoval: true,
     fieldName: 'establishment_id'
   })
-  public establishment_id: Establishment
+  public establishment: Establishment
 }

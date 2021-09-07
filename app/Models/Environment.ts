@@ -25,10 +25,10 @@ export default class Environment {
   @Property()
   public description: string
 
-  @ManyToOne(() => Establishment, { mapToPk: true, fieldName: 'establishment_id'})
-  public establishment_id: Establishment
+  @ManyToOne(() => Establishment, { fieldName: 'establishment_id'})
+  public establishment: Establishment
 
-  @OneToMany('Table', 'environment_id')
+  @OneToMany('Table', 'environment')
   public tables = new Collection<Table>(this)
 
 }
