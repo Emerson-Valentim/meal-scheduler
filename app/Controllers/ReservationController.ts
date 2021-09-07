@@ -72,7 +72,6 @@ export default class ReservationController extends CrudController<
   public async safeLoad({
     queryStringParameters
   }: APIGatewayEvent) {
-    console.log(queryStringParameters)
     const filters = await BaseValidator.validate(
       queryStringParameters,
       this.validator,
