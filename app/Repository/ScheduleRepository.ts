@@ -1,6 +1,6 @@
 import { EntityRepository } from '@mikro-orm/knex'
-import Environment from 'App/Models/Environment'
+import Schedule from 'App/Models/Schedule'
 
-export default class ScheduleRepository extends EntityRepository<Environment> {
+export default class ScheduleRepository extends EntityRepository<Schedule> {
 
 }
