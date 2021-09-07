@@ -13,7 +13,7 @@ test.group('Schedule Entity', () => {
     const modelDefinition: Schedule = {
       id: 1,
       definition: {
-        '0': {
+        '1': {
           end: '11:00:00',
           start: '11:20:00',
         }
