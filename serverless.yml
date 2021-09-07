@@ -40,6 +40,7 @@ custom:
     certificateName: 'evshosting.net'
     hostedZoneId: ZCMLWB8V5SYIT
     endpointType: regional
+    basePath: '/'
     createRoute53Record: true
     autoDomain: true
   serverless-offline:
