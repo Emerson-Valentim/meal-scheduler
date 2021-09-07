@@ -12,7 +12,10 @@ menuLoad:
   handler: ./start/router.menuLoad
   events:
     - http:
-        path: /menu/load/{id?}
+        path: /menu/load
+        method: get
+    - http:
+        path: /menu/load/{id}
         method: get
 
 menuDelete:

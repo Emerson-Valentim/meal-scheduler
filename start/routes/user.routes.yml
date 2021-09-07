@@ -12,7 +12,13 @@ userLoad:
   handler: ./start/router.userLoad
   events:
     - http:
-        path: /user/load/{id?}
+        path: /user/load
+        method: get
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+    - http:
+        path: /user/load/{id}
         method: get
         authorizer: 
           name: basicAuthorizer

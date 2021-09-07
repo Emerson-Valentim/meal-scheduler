@@ -12,7 +12,10 @@ environmentLoad:
   handler: ./start/router.environmentLoad
   events:
     - http:
-        path: /environment/load/{id?}
+        path: /environment/load
+        method: get
+    - http:
+        path: /environment/load/{id}
         method: get
 
 environmentDelete:

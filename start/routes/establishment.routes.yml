@@ -12,7 +12,10 @@ establishmentLoad:
   handler: ./start/router.establishmentLoad
   events:
     - http:
-        path: /establishment/load/{id?}
+        path: /establishment/load
+        method: get
+    - http:
+        path: /establishment/load/{id}
         method: get
 
 establishmentDelete:

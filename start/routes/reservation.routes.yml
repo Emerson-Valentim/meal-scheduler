@@ -9,7 +9,13 @@ reservationLoad:
   handler: ./start/router.reservationLoad
   events:
     - http:
-        path: /reservation/load/{id?}
+        path: /reservation/load
+        method: get
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+    - http:
+        path: /reservation/load/{id}
         method: get
         authorizer: 
           name: basicAuthorizer

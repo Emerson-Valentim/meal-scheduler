@@ -12,7 +12,10 @@ tableLoad:
   handler: ./start/router.tableLoad
   events:
     - http:
-        path: /table/load/{id?}
+        path: /table/load
+        method: get
+    - http:
+        path: /table/load/{id}
         method: get
 
 tableDelete:

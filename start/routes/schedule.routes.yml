@@ -12,7 +12,10 @@ scheduleLoad:
   handler: ./start/router.scheduleLoad
   events:
     - http:
-        path: /schedule/load/{id?}
+        path: /schedule/load
+        method: get
+    - http:
+        path: /schedule/load/{id}
         method: get
 
 scheduleDelete:
