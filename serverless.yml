@@ -38,9 +38,10 @@ custom:
   customDomain:
     domainName: ${env:ENV}-serverless.evshosting.net
     certificateName: 'evshosting.net'
+    hostedZoneId: ZCMLWB8V5SYIT
+    endpointType: regional
     createRoute53Record: true
     autoDomain: true
-    basePath: ''
   serverless-offline:
     host: 0.0.0.0
     port: 3000
