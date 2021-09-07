@@ -65,7 +65,7 @@ export default class ReservationValidator implements BaseCrudValidator {
       body: Joi.object({
         status: Joi
           .string()
-          .valid(...Object.values(ReservationStatus))
+          .valid(ReservationStatus.CANCELED, ReservationStatus.FINISHED)
           .optional(),
       }).required()
     })
@@ -75,6 +75,19 @@ export default class ReservationValidator implements BaseCrudValidator {
     return Joi.object({
       id: Joi
         .number()
+        .required()
+    })
+  }
+
+  public filterByRelations() {
+    return Joi.object({
+      establishment_id: Joi
+        .string()
+        .external((value) => +value)
+        .required(),
+      table_id: Joi
+        .string()
+        .external((value) => +value)
         .required()
     })
   }

@@ -21,3 +21,13 @@ reservationUpdate:
     - http:
         path: /reservation/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+
+reservationSafeLoad:
+  handler: ./start/router.reservationSafeLoad
+  events:
+    - http:
+        path: /reservation/safeLoad
+        method: get
