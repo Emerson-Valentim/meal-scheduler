@@ -16,6 +16,7 @@ import ReservationController from 'App/Controllers/ReservationController';
 import ScheduleController from 'App/Controllers/ScheduleController';
 import UserController from 'App/Controllers/UserController';
 import AuthorizerController from 'App/Controllers/AuthorizerController';
+import { Callback, Context } from 'aws-lambda';
 
 type MethodDefinition = {
   [prefix:string]: string
@@ -104,9 +105,11 @@ Object.entries(routes).forEach(([prefix, {methods, controller}]) => {
   Object.values(methods).forEach((controllerMethod) => {
     module.exports[`${prefix}${Utils.capitalize(controllerMethod)}`] = async (
       event,
-      context,
-      callback
+      context: Context,
+      callback: Callback
     ): Promise<BaseHttpResponse> => {
+
+      context.callbackWaitsForEmptyEventLoop = false
 
       await Orm.init()
 

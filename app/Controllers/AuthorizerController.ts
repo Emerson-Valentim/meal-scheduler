@@ -22,12 +22,11 @@ export default class AuthorizerController {
   protected userRepository = Orm.em.getRepository(User);
 
   public async authorize(event, context: Context, callback: Callback) {
-    context.callbackWaitsForEmptyEventLoop = false
 
     const { headers: { Authorization } } = event
 
     if (!Authorization) {
-      return callback('Unauthorized', 401)
+      callback('Unauthorized', 401)
     }
 
     const token = Authorization.replace('Basic ', '')
@@ -42,7 +41,7 @@ export default class AuthorizerController {
     const user: User = await this.userRepository.findOne(credentials)
 
     if (!user) {
-      return callback('Unauthorized')
+      callback('Unauthorized')
     }
 
     const { id, cnpj, establishment } = user
@@ -70,7 +69,7 @@ export default class AuthorizerController {
         ]
       }
     }
-    return callback(null, policy)
+    callback(null, policy)
   }
 
 }
