@@ -5,7 +5,7 @@ export default {
   type: 'postgresql',
   entities: [
     process.env.REMOTE === 'true' ?
-      './app/Models/*.ts' :
+      './app/Models/*.js' :
       './.build/app/Models/*.js'
   ],
   entitiesTs: [
