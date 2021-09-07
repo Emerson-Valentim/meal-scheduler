@@ -26,8 +26,7 @@ export default class AuthorizerController {
     const { headers: { Authorization } } = event
 
     if (!Authorization) {
-      callback('Unauthorized', 401)
-      throw new HttpException('Unauthorized', 401, event)
+      return callback('Unauthorized', 401)
     }
 
     const token = Authorization.replace('Basic ', '')
@@ -42,8 +41,7 @@ export default class AuthorizerController {
     const user: User = await this.userRepository.findOne(credentials)
 
     if (!user) {
-      callback('Unauthorized')
-      throw new HttpException('User not found', 404, event)
+      return callback('Unauthorized')
     }
 
     const { id, cnpj, establishment } = user
@@ -71,7 +69,7 @@ export default class AuthorizerController {
         ]
       }
     }
-    callback(null, policy)
+    return callback(null, policy)
   }
 
 }
