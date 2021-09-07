@@ -15,19 +15,19 @@ reservationLoad:
           name: basicAuthorizer
           type: request
 
-reservationDelete:
-  handler: ./start/router.reservationDelete
-  events:
-    - http:
-        path: /reservation/delete/{id}
-        method: delete
-        authorizer: 
-          name: basicAuthorizer
-          type: request
-
 reservationUpdate:
   handler: ./start/router.reservationUpdate
   events:
     - http:
         path: /reservation/update/{id}
         method: put
+        authorizer: 
+          name: basicAuthorizer
+          type: request
+
+reservationSafeLoad:
+  handler: ./start/router.reservationSafeLoad
+  events:
+    - http:
+        path: /reservation/safeLoad
+        method: get

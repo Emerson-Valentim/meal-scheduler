@@ -2,7 +2,7 @@ import { Entity, Property, PrimaryKey, OneToOne } from '@mikro-orm/core'
 import Establishment from './Establishment'
 
 export enum WeekDays {
-  MONDAY = 0,
+  MONDAY = 1,
   TUESDAY,
   WEDNESDAY,
   THURSDAY,

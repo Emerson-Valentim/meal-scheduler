@@ -1,4 +1,5 @@
 import Environment from 'App/Models/Environment'
+import EnvironmentRepository from 'App/Repository/EnvironmentRepository'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import EnvironmentValidator from 'App/Validator/EnvironmentValidator'
@@ -9,6 +10,7 @@ import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class EnvironmentController extends CrudController<
   EnvironmentValidator,
+  EnvironmentRepository,
   Environment
 >{
 

@@ -37,6 +37,7 @@
     "mikro-orm": "^4.5.9",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
+    "serverless-plugin-custom-domain": "^2.0.4",
     "ts-node": "^10.2.1"
   },
   "mikro-orm": {

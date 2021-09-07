@@ -1,7 +1,8 @@
 import Table from './Table'
 import Establishment from './Establishment';
 import { DateTime } from 'luxon';
-import { Entity, ManyToOne, Property, PrimaryKey, Enum } from '@mikro-orm/core';
+import { Entity, ManyToOne, Property, PrimaryKey, Enum, EntityRepositoryType } from '@mikro-orm/core';
+import ReservationRepository from 'App/Repository/ReservationRepository';
 
 export enum ReservationStatus {
   SCHEDULED = 'scheduled',
@@ -14,8 +15,10 @@ export type Interval = {
   end: DateTime
 }
 
-@Entity()
+@Entity({ customRepository: () => ReservationRepository })
 export default class Reservation {
+
+  [EntityRepositoryType]?: ReservationRepository
 
   @PrimaryKey()
   public id: number

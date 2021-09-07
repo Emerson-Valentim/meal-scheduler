@@ -5,9 +5,11 @@ import EstablishmentValidator from 'App/Validator/EstablishmentValidator'
 import Utils from 'App/Services/Utils'
 import CrudController, { BaseHttpResponse } from './Base/CrudController'
 import { Authorizer } from './AuthorizerController'
+import EstablishmentRepository from 'App/Repository/EstablishmentRepository'
 
 export default class EstablishmentController extends CrudController<
   EstablishmentValidator,
+  EstablishmentRepository,
   Establishment
 >{
 

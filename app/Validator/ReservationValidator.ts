@@ -2,6 +2,9 @@
 import { BaseCrudValidator } from 'App/Controllers/Base/CrudController'
 import { ReservationStatus } from 'App/Models/Reservation'
 import Joi from 'joi'
+import { DateTime } from 'luxon'
+
+const dateTime = Joi.string().regex(/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+|)(?:Z|(?:\+|\-)(?:\d{2}):?(?:\d{2}))/).external(value => DateTime.fromISO(value).toUTC())
 
 export default class ReservationValidator implements BaseCrudValidator {
   public createValidation() {
@@ -31,8 +34,8 @@ export default class ReservationValidator implements BaseCrudValidator {
         .required(),
       interval: Joi
         .object({
-          start: Joi.string().regex(/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+|)(?:Z|(?:\+|\-)(?:\d{2}):?(?:\d{2}))/).required(),
-          end: Joi.string().regex(/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+|)(?:Z|(?:\+|\-)(?:\d{2}):?(?:\d{2}))/).required()
+          start: dateTime.required(),
+          end: dateTime.required()
         })
         .required()
     })
@@ -62,7 +65,7 @@ export default class ReservationValidator implements BaseCrudValidator {
       body: Joi.object({
         status: Joi
           .string()
-          .valid(...Object.values(ReservationStatus))
+          .valid(ReservationStatus.CANCELED, ReservationStatus.FINISHED)
           .optional(),
       }).required()
     })
@@ -72,6 +75,19 @@ export default class ReservationValidator implements BaseCrudValidator {
     return Joi.object({
       id: Joi
         .number()
+        .required()
+    })
+  }
+
+  public filterByRelations() {
+    return Joi.object({
+      establishment_id: Joi
+        .string()
+        .external((value) => +value)
+        .required(),
+      table_id: Joi
+        .string()
+        .external((value) => +value)
         .required()
     })
   }
