@@ -35,14 +35,6 @@ functions:
   - ${file(./start/routes/user.routes.yml)}
 
 custom:
-  customDomain:
-    domainName: ${env:ENV}-serverless.evshosting.net
-    certificateName: 'evshosting.net'
-    hostedZoneId: ZCMLWB8V5SYIT
-    endpointType: regional
-    basePath: '/'
-    createRoute53Record: true
-    autoDomain: true
   serverless-offline:
     host: 0.0.0.0
     port: 3000
@@ -51,5 +43,4 @@ plugins:
   - serverless-plugin-typescript
   - serverless-tscpaths
   - serverless-offline
-  - serverless-domain-manager
 
