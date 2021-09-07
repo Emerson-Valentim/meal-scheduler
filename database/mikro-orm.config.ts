@@ -4,7 +4,9 @@ import 'reflect-metadata';
 export default {
   type: 'postgresql',
   entities: [
-    './.build/app/Models/*.js'
+    process.env.REMOTE === 'true' ?
+      './app/Models/*.ts' :
+      './.build/app/Models/*.js'
   ],
   entitiesTs: [
     './app/Models/*.ts'

@@ -21,6 +21,7 @@ provider:
     PG_USERNAME: ${env:PG_USERNAME}
     PG_PASSWORD: ${env:PG_PASSWORD}
     PG_DATABASE: ${env:PG_DATABASE}
+    REMOTE: ${env:REMOTE}
       
 package:
   individually: true
