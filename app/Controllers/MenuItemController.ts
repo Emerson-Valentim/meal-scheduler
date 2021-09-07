@@ -1,4 +1,5 @@
 import MenuItem from 'App/Models/MenuItem'
+import MenuItemRepository from 'App/Repository/MenuItemRepository'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import MenuItemValidator from 'App/Validator/MenuItemValidator'
@@ -8,6 +9,7 @@ import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class MenuItemController extends CrudController<
   MenuItemValidator,
+  MenuItemRepository,
   MenuItem
 >{
 

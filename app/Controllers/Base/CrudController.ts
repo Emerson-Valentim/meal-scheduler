@@ -1,6 +1,7 @@
-import { EntityRepository } from '@mikro-orm/knex'
+import { EntityRepository, SqlEntityRepository } from '@mikro-orm/knex'
 import HttpException from 'App/Exceptions/HttpException'
 import User from 'App/Models/User'
+import UserRepository from 'App/Repository/UserRepository'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import { APIGatewayEvent } from 'aws-lambda'
@@ -21,16 +22,16 @@ export type BaseHttpResponse = {
 
 export default abstract class CrudController<
   Validator extends BaseCrudValidator,
+  Repository extends EntityRepository<Model>,
   Model extends AnyEntity<Model>> {
 
-  protected repository: EntityRepository<Model>
-  protected userRepository = Orm.em.getRepository(User)
+  protected repository: Repository = Orm.em.getRepository(this.model.__meta?.className)
+  protected userRepository: UserRepository = Orm.em.getRepository(User)
 
   constructor(
     public readonly validator: Validator,
     public readonly model: Model
   ) {
-    this.repository = Orm.em.getRepository(model.__meta?.className) as any
   }
 
   public async create({ body }: APIGatewayEvent): Promise<BaseHttpResponse> {

@@ -1,4 +1,5 @@
 import Schedule from 'App/Models/Schedule'
+import ScheduleRepository from 'App/Repository/ScheduleRepository'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import ScheduleValidator from 'App/Validator/ScheduleValidator'
@@ -8,6 +9,7 @@ import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class ScheduleController extends CrudController<
   ScheduleValidator,
+  ScheduleRepository,
   Schedule
 >{
 

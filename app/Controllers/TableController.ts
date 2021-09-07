@@ -1,5 +1,6 @@
 import Environment from 'App/Models/Environment'
 import Table from 'App/Models/Table'
+import TableRepository from 'App/Repository/TableRepository'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import TableValidator from 'App/Validator/TableValidator'
@@ -10,6 +11,7 @@ import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class TableController extends CrudController<
   TableValidator,
+  TableRepository,
   Table
 >{
 

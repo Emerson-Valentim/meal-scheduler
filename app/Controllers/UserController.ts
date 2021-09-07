@@ -1,4 +1,5 @@
 import User from 'App/Models/User'
+import UserRepository from 'App/Repository/UserRepository'
 import Utils from 'App/Services/Utils'
 import BaseValidator from 'App/Validator/BaseValidator'
 import UserValidator from 'App/Validator/UserValidator'
@@ -8,6 +9,7 @@ import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 export default class UserController extends CrudController<
   UserValidator,
+  UserRepository,
   User
 >{
 
