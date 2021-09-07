@@ -28,7 +28,6 @@ jobs:
         - name: Create env file for migration
           uses: SpicyPizza/create-envfile@v1
           with:
-            envkey_RUN_MIGRATION: true
             envkey_ENV: ${{ github.event.inputs.environment }}
             envkey_PG_HOST: ${{ secrets.PG_HOST }}
             envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
@@ -37,16 +36,6 @@ jobs:
 
         - name: Run migrations
           run: yarn migration:run
-
-        - name: Create env file for deploy
-          uses: SpicyPizza/create-envfile@v1
-          with:
-            envkey_RUN_MIGRATION: false
-            envkey_ENV: ${{ github.event.inputs.environment }}
-            envkey_PG_HOST: ${{ secrets.PG_HOST }}
-            envkey_PG_USERNAME: ${{ secrets.PG_USERNAME }}
-            envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-            envkey_PG_DATABASE: ${{ secrets.PG_DATABASE }}_${{ github.event.inputs.environment }}
 
         - name: Serverless command
           uses: serverless/github-action@master
