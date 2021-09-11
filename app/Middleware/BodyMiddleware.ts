@@ -11,10 +11,15 @@ export default class BodyMiddleware {
     }
   }
 
-  public static responseParser (event, context) {
+  public static responseParser (event: APIGatewayEvent, context) {
     try {
       if(typeof event.body === 'object') {
         event.body = JSON.stringify(event.body) ?? {}
+      }
+      event.headers = {
+        ...event.headers,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': 'true',
       }
       return event
     } catch (error) {

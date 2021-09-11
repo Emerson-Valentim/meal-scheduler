@@ -23,7 +23,7 @@ provider:
     PG_PASSWORD: ${env:PG_PASSWORD}
     PG_DATABASE: ${env:PG_DATABASE}
     REMOTE: ${env:REMOTE}
-      
+          
 package:
   individually: true
     
@@ -54,3 +54,13 @@ plugins:
   - serverless-offline
   - serverless-domain-manager
 
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
