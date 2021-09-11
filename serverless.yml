@@ -64,3 +64,4 @@ resources:
           gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
         ResponseType: DEFAULT_4XX
         RestApiId:
+          Ref: ApiGatewayRestApi
