@@ -46,6 +46,23 @@ export default class UserController extends CrudController<
     }
   }
 
+  public async load({ requestContext: { authorizer } }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      const { principalId: user_id } = authorizer as Authorizer
+
+      const model = await this.repository.findOneOrFail(user_id)
+
+      await this.repository.populate(model, ['establishment'])
+
+      const { password, ...safeModel } = model
+
+      return Utils.toHttpResponse(200, safeModel)
+
+    } catch (error) {
+      throw error
+    }
+  }
+
   public async update({
     body,
     pathParameters,

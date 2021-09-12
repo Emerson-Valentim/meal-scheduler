@@ -32,8 +32,6 @@ export default class AuthorizerController {
 
     const { headers } = event
 
-    console.log(headers)
-
     const Authorization = headers['Authorization'] || headers['authorization']
 
     if (!Authorization) {

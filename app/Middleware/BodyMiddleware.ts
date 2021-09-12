@@ -16,14 +16,16 @@ export default class BodyMiddleware {
       if (typeof event.body === 'object') {
         event.body = JSON.stringify(event.body) ?? {}
       }
-      event.headers = {
+
+      event.headers = event.body ? {
         ...event.headers,
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json'
-      }
+      } : event.headers
+
       return event
     } catch (error) {
       throw error
