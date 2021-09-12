@@ -4,6 +4,7 @@ reservationCreate:
     - http:
         path: /reservation/create
         method: post
+        cors: true
 
 reservationLoad:
   handler: ./start/router.reservationLoad
@@ -11,12 +12,14 @@ reservationLoad:
     - http:
         path: /reservation/load
         method: get
+        cors: true
         authorizer: 
           name: basicAuthorizer
           type: request
     - http:
         path: /reservation/load/{id}
         method: get
+        cors: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -27,6 +30,7 @@ reservationUpdate:
     - http:
         path: /reservation/update/{id}
         method: put
+        cors: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -37,3 +41,4 @@ reservationSafeLoad:
     - http:
         path: /reservation/safeLoad
         method: get
+        cors: true

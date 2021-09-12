@@ -4,6 +4,7 @@ menuCreate:
     - http:
         path: /menu/create
         method: post
+        cors: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -14,9 +15,11 @@ menuLoad:
     - http:
         path: /menu/load
         method: get
+        cors: true
     - http:
         path: /menu/load/{id}
         method: get
+        cors: true
 
 menuDelete:
   handler: ./start/router.menuDelete
@@ -24,6 +27,7 @@ menuDelete:
     - http:
         path: /menu/delete/{id}
         method: delete
+        cors: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -34,6 +38,7 @@ menuUpdate:
     - http:
         path: /menu/update/{id}
         method: put
+        cors: true
         authorizer: 
           name: basicAuthorizer
           type: request
