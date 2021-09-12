@@ -1,8 +1,5 @@
 import User from 'App/Models/User';
-import HttpException from 'App/Exceptions/HttpException';
 import Orm from 'Start/orm';
-import { Callback, Context } from 'aws-lambda';
-import Establishment from 'App/Models/Establishment';
 
 type Credentials = {
   cnpj: string
@@ -33,7 +30,9 @@ export default class AuthorizerController {
 
   public async authorize(event) {
 
-    const { headers: { Authorization } } = event
+    const { headers } = event
+
+    const Authorization = headers['Authorization'] || headers['authorization']
 
     if (!Authorization) {
       return policy
