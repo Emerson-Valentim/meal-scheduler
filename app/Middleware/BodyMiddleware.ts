@@ -1,9 +1,9 @@
 import { APIGatewayEvent } from 'aws-lambda';
 
 export default class BodyMiddleware {
-  public static requestParser (event: APIGatewayEvent, context) {
+  public static requestParser(event: APIGatewayEvent, context) {
     try {
-      if(typeof event.body === 'string') {
+      if (typeof event.body === 'string') {
         event.body = JSON.parse(event.body) ?? {}
       }
     } catch (error) {
@@ -11,15 +11,18 @@ export default class BodyMiddleware {
     }
   }
 
-  public static responseParser (event: APIGatewayEvent, context) {
+  public static responseParser(event: APIGatewayEvent, context) {
     try {
-      if(typeof event.body === 'object') {
+      if (typeof event.body === 'object') {
         event.body = JSON.stringify(event.body) ?? {}
       }
       event.headers = {
         ...event.headers,
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Content-Type': 'application/json'
       }
       return event
     } catch (error) {
