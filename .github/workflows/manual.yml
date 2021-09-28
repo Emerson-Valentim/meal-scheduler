@@ -16,21 +16,11 @@ jobs:
       container:  node:lts-alpine
 
       steps:
-        - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: sa-east-1
-
         - name: Check out repository code
           uses: actions/checkout@v2
    
-        - name: Install serverless
-          run: npm i -g serverless
-
         - name: Install dependencies
-          run: npm i
+          run: yarn
 
         - name: Create env file for migration
           uses: SpicyPizza/create-envfile@v1
@@ -46,5 +36,9 @@ jobs:
           run: yarn migration:run
 
         - name: Serverless command
-          run: |
-            sls ${{ github.event.input.method }}
+          uses: serverless/github-action@master
+          with:
+            args: ${{ github.event.inputs.method }}
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
