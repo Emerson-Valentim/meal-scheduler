@@ -7,6 +7,7 @@ import CrudController, { BaseHttpResponse } from './Base/CrudController'
 
 import EstablishmentRepository from 'App/Repository/EstablishmentRepository'
 import { Authorizer } from './AuthorizerController'
+import { LoadStrategy } from '@mikro-orm/core'
 
 export default class EstablishmentController extends CrudController<
   EstablishmentValidator,
@@ -45,6 +46,40 @@ export default class EstablishmentController extends CrudController<
       await this.userRepository.persistAndFlush(user)
 
       return Utils.toHttpResponse(201, model)
+    } catch (error) {
+      throw error
+    }
+  }
+
+  public async load({ queryStringParameters, pathParameters }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      ({ pathParameters } = await BaseValidator.validate(
+        { queryStringParameters, pathParameters },
+        this.validator,
+        'filterValidation')
+      )
+
+      if (pathParameters?.id) {
+        const model = await this.repository.findOneOrFail(pathParameters, {
+          populate: {
+            menu_items: LoadStrategy.JOINED,
+            environments: LoadStrategy.JOINED,
+            reservations: LoadStrategy.JOINED
+          }
+        })
+
+        await this.repository.populate(model, ['environments.tables'])
+
+        return Utils.toHttpResponse(200, model)
+      }
+
+      const allModels = await this.repository.findAll()
+
+      if (allModels.length) {
+        return Utils.toHttpResponse(200, allModels)
+      }
+
+      return Utils.toHttpResponse(404, [])
     } catch (error) {
       throw error
     }
