@@ -84,7 +84,7 @@ export default class CheckSchedule {
     const timeSplit = time.split(':')
     const ruleSplit = rule.split(':')
 
-    const dateNow = DateTime.now()
+    const dateNow = DateTime.now().toUTC()
 
     const timeDate = dateNow.set({
       hour: timeSplit[0],
