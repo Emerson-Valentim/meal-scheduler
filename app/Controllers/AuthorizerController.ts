@@ -49,7 +49,7 @@ export default class AuthorizerController {
   }
 
   private async findUser(credentials: Credentials) {
-    const user: User = await this.userRepository.findOne(credentials)
+    const user: User = await this.userRepository.findOneOrFail(credentials)
 
     if (!user) {
       return

@@ -25,7 +25,7 @@ export default abstract class CrudController<
   Repository extends EntityRepository<Model>,
   Model extends AnyEntity<Model>> {
 
-  protected repository: Repository = Orm.em.getRepository(this.model.__meta?.className)
+  protected repository: Repository = Orm.em.getRepository(this.model.__meta?.className!) as any
   protected userRepository: UserRepository = Orm.em.getRepository(User)
 
   constructor(

@@ -137,6 +137,7 @@ async function beforeMiddleware(event, context) {
 }
 
 async function afterMiddleware(event, context, response) {
+  await Orm.close()
   Logger.outgoingResponse(event, context, response)
   BodyMiddleware.responseParser(response, context)
 }

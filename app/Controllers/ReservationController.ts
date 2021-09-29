@@ -81,10 +81,7 @@ export default class ReservationController extends CrudController<
 
     try {
       const models = await this.repository.find(
-        {
-          ...filters,
-          status: 'scheduled'
-        },
+        filters,
         {
           fields: ['interval', 'table_id', 'establishment_id']
         }

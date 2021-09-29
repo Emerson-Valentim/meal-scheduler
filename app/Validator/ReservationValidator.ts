@@ -83,12 +83,16 @@ export default class ReservationValidator implements BaseCrudValidator {
     return Joi.object({
       establishment_id: Joi
         .string()
-        .external((value) => +value)
+        .external((value) => +value || undefined)
         .required(),
       table_id: Joi
         .string()
-        .external((value) => +value)
-        .required()
+        .external((value) => +value || undefined)
+        .optional(),
+      status: Joi
+        .string()
+        .valid(ReservationStatus.CANCELED, ReservationStatus.FINISHED, ReservationStatus.SCHEDULED)
+        .optional()
     })
   }
 }
