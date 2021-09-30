@@ -1,8 +1,19 @@
 import Table from './Table'
 import Establishment from './Establishment';
 import { DateTime } from 'luxon';
-import { Entity, ManyToOne, Property, PrimaryKey, Enum, EntityRepositoryType } from '@mikro-orm/core';
+import {
+  Entity,
+  ManyToOne,
+  Property,
+  PrimaryKey,
+  Enum,
+  EntityRepositoryType,
+  BeforeCreate,
+  EventArgs,
+  BeforeUpdate
+} from '@mikro-orm/core';
 import ReservationRepository from 'App/Repository/ReservationRepository';
+import { ReservationHook } from 'App/Hooks/ReservationHook';
 
 export enum ReservationStatus {
   SCHEDULED = 'scheduled',
@@ -40,5 +51,15 @@ export default class Reservation {
 
   @Property({ columnType: 'jsonb' })
   public interval: Interval
+
+  @BeforeCreate()
+  public async beforeCreate({ entity: reservation }: EventArgs<this>) {
+    ReservationHook.setIntervalUTC(reservation)
+  }
+
+  @BeforeUpdate()
+  public async beforeUpdate({ entity: reservation }: EventArgs<this>) {
+    ReservationHook.setIntervalUTC(reservation)
+  }
 
 }

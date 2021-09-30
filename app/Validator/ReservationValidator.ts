@@ -4,7 +4,7 @@ import { ReservationStatus } from 'App/Models/Reservation'
 import Joi from 'joi'
 import { DateTime } from 'luxon'
 
-const dateTime = Joi.string().regex(/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+|)(?:Z|(?:\+|\-)(?:\d{2}):?(?:\d{2}))/).external(value => DateTime.fromISO(value).toUTC())
+const dateTime = Joi.string().regex(/\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])T(?:[0-1]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+|)(?:Z|(?:\+|\-)(?:\d{2}):?(?:\d{2}))/).external(value => DateTime.fromISO(value).setZone(process.env.TZ))
 
 export default class ReservationValidator implements BaseCrudValidator {
   public createValidation() {
