@@ -60,6 +60,8 @@ export default class CheckSchedule {
       const dayStart = start.weekday
       const dayEnd = end.weekday
 
+      console.log(dayStart, dayEnd)
+
       if(dayStart !== dayEnd) {
         throw new HttpException('Reservations can not be longer than 1 day', 400, {})
       }
