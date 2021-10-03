@@ -22,6 +22,8 @@ export default class ReservationRepository extends EntityRepository<Reservation>
           extract(epoch from ("interval"->'end')::text::timestamptz) * 1000 as "end" 
         from reservation r 
         where r.status = 'scheduled'
+        and r.table_id = ${filter.table_id}
+        and r.establishment_id = ${filter.establishment_id}
         ) as "json_time"
       where 
         ${filter.start.toMillis()} between "json_time"."start" and "json_time"."end"
