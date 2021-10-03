@@ -57,9 +57,4 @@ export default class Reservation {
     ReservationHook.setIntervalUTC(reservation)
   }
 
-  @BeforeUpdate()
-  public async beforeUpdate({ entity: reservation }: EventArgs<this>) {
-    ReservationHook.setIntervalUTC(reservation)
-  }
-
 }

@@ -95,4 +95,33 @@ export default class ReservationValidator implements BaseCrudValidator {
         .optional()
     })
   }
+
+  public updateByClient() {
+    return Joi.object({
+      pathParameters: Joi.object({
+        id: Joi
+          .number()
+          .required()
+      }),
+      body: Joi.object({
+        status: Joi
+          .string()
+          .valid(ReservationStatus.CANCELED)
+          .required(),
+        cpf: Joi
+          .string()
+          .required()
+          .min(11)
+          .regex(/^[0-9]*$/)
+          .message('CPF is invalid'),
+        phone: Joi
+          .string()
+          .required()
+          .min(12)
+          .max(13)
+          .regex(/^[0-9]*$/)
+          .message('Phone is invalid')
+      })
+    })
+  }
 }

@@ -1,3 +1,4 @@
+import HttpException from 'App/Exceptions/HttpException'
 import Reservation from 'App/Models/Reservation'
 import ReservationRepository from 'App/Repository/ReservationRepository'
 import CheckSchedule from 'App/Services/CheckSchedule'
@@ -88,7 +89,36 @@ export default class ReservationController extends CrudController<
       )
 
       return Utils.toHttpResponse(200, models)
-    } catch(error) {
+    } catch (error) {
+      throw error
+    }
+  }
+
+  public async safeUpdate({
+    body,
+    pathParameters,
+  }: APIGatewayEvent) {
+    const { pathParameters: id, body: { status, ...user } } = await BaseValidator.validate(
+      { body, pathParameters },
+      this.validator,
+      'updateByClient'
+    )
+
+    try {
+      const model = await this.repository.findOneOrFail(id)
+
+      if (model?.phone === user.phone && model?.cpf === user.cpf) {
+
+        this.modelUpdate(model, { status })
+
+        await this.repository.persistAndFlush(model)
+
+        return Utils.toHttpResponse(200, model)
+      }
+
+      throw new HttpException('User has no permission on this action', 401, {});
+
+    } catch (error) {
       throw error
     }
   }

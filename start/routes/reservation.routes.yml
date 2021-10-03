@@ -42,3 +42,11 @@ reservationSafeLoad:
         path: /reservation/safeLoad
         method: get
         cors: true
+
+reservationSafeUpdate:
+  handler: ./start/router.reservationSafeUpdate
+  events:
+    - http:
+        path: /reservation/safeUpdate/{id}
+        method: put
+        cors: true

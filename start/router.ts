@@ -89,7 +89,8 @@ const routes: RouteDefinition = {
       create: 'create',
       update: 'update',
       load: 'load',
-      safeLoad: 'safeLoad'
+      safeLoad: 'safeLoad',
+      safeUpdate: 'safeUpdate'
     },
     controller: ReservationController
   },
