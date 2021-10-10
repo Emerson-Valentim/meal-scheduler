@@ -4,7 +4,10 @@ establishmentCreate:
     - http:
         path: /establishment/create
         method: post
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -15,7 +18,10 @@ establishmentLoad:
     - http:
         path: /establishment/load
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
     - http:
         path: /establishment/load/{id}
         method: get
@@ -26,7 +32,10 @@ establishmentDelete:
     - http:
         path: /establishment/delete/{id}
         method: delete
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -37,7 +46,10 @@ establishmentUpdate:
     - http:
         path: /establishment/update/{id}
         method: put
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request

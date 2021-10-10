@@ -4,7 +4,10 @@ environmentCreate:
     - http:
         path: /environment/create
         method: post
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -15,11 +18,17 @@ environmentLoad:
     - http:
         path: /environment/load
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
     - http:
         path: /environment/load/{id}
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
 
 environmentDelete:
   handler: ./start/router.environmentDelete
@@ -27,7 +36,10 @@ environmentDelete:
     - http:
         path: /environment/delete/{id}
         method: delete
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -38,7 +50,10 @@ environmentUpdate:
     - http:
         path: /environment/update/{id}
         method: put
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request

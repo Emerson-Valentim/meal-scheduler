@@ -7,7 +7,10 @@ userCreate:
     - http:
         path: /user/create
         method: post
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
 
 userLoad:
   handler: ./start/router.userLoad
@@ -15,14 +18,20 @@ userLoad:
     - http:
         path: /user/load
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
     - http:
         path: /user/load/{id}
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -33,7 +42,10 @@ userDelete:
     - http:
         path: /user/delete/{id}
         method: delete
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -44,7 +56,10 @@ userUpdate:
     - http:
         path: /user/update/{id}
         method: put
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request

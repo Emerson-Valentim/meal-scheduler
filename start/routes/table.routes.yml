@@ -4,7 +4,10 @@ tableCreate:
     - http:
         path: /table/create
         method: post
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -15,11 +18,17 @@ tableLoad:
     - http:
         path: /table/load
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
     - http:
         path: /table/load/{id}
         method: get
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
 
 tableDelete:
   handler: ./start/router.tableDelete
@@ -27,7 +36,10 @@ tableDelete:
     - http:
         path: /table/delete/{id}
         method: delete
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
@@ -38,7 +50,10 @@ tableUpdate:
     - http:
         path: /table/update/{id}
         method: put
-        cors: true
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
         authorizer: 
           name: basicAuthorizer
           type: request
