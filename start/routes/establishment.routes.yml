@@ -25,6 +25,10 @@ establishmentLoad:
     - http:
         path: /establishment/load/{id}
         method: get
+        cors:
+          origin: '*'
+          headers: '*'
+          allowCredentials: true
 
 establishmentDelete:
   handler: ./start/router.establishmentDelete
