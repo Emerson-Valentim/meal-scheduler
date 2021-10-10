@@ -25,8 +25,6 @@ export default class BodyMiddleware {
         'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json'
       } : event.headers
-
-      return event
     } catch (error) {
       throw error
     }
