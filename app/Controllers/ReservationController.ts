@@ -71,6 +71,40 @@ export default class ReservationController extends CrudController<
     }
   }
 
+  public async load({
+    queryStringParameters,
+    pathParameters,
+    requestContext: { authorizer }
+  }: APIGatewayEvent): Promise<BaseHttpResponse> {
+    try {
+      ({ pathParameters } = await BaseValidator.validate(
+        { queryStringParameters, pathParameters },
+        this.validator,
+        'filterValidation')
+      )
+
+      const { principalId: user_id } = authorizer as Authorizer
+
+      const user = await this.userRepository.findOneOrFail(user_id)
+
+      if (pathParameters?.id) {
+        const model = await this.repository.findOneOrFail({...pathParameters, establishment: user.establishment})
+
+        return Utils.toHttpResponse(200, model)
+      }
+
+      const allModels = await this.repository.find({establishment: user.establishment})
+
+      if (allModels.length) {
+        return Utils.toHttpResponse(200, allModels)
+      }
+
+      return Utils.toHttpResponse(404, [])
+    } catch (error) {
+      throw error
+    }
+  }
+
   public async safeLoad({
     queryStringParameters
   }: APIGatewayEvent) {
